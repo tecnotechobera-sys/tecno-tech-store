@@ -97,7 +97,7 @@
     font-size:1.9rem; width:100%; height:110px; display:flex; align-items:center; justify-content:center;
     background:rgba(140,198,63,.08); border-radius:10px; overflow:hidden;
   }
-  .prod-img{width:100%; height:100%; object-fit:cover; border-radius:10px;}
+  .prod-img{width:100%; height:100%; object-fit:cover; border-radius:10px; cursor:zoom-in;}
   .card .name{font-size:.9rem; font-weight:500; line-height:1.3;}
   .card .price{font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:600; color:var(--lime); margin-top:auto;}
   .add-btn{
@@ -193,6 +193,20 @@
   }
   footer .fbrand{color:var(--lime); font-weight:600;}
 
+  /* --- Lightbox --- */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:100;
+    display:none; align-items:center; justify-content:center; flex-direction:column; gap:14px; padding:30px 20px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:100%; max-height:70vh; border-radius:12px; object-fit:contain;}
+  .lightbox .lb-name{color:var(--text); font-size:1.05rem; font-weight:600; text-align:center;}
+  .lightbox .lb-price{color:var(--lime); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.1rem;}
+  .lightbox .lb-close{
+    position:absolute; top:18px; right:18px; background:var(--bg-card); border:1px solid var(--line);
+    color:var(--text); width:38px; height:38px; border-radius:50%; font-size:1.1rem;
+  }
+
   @media(max-width:640px){
     .hero{padding:38px 18px 22px;}
   }
@@ -228,6 +242,14 @@
 </footer>
 
 <div class="overlay" id="overlay"></div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">✕</button>
+  <img id="lbImg" src="">
+  <div class="lb-name" id="lbName"></div>
+  <div class="lb-price" id="lbPrice"></div>
+</div>
+
 <div class="drawer" id="drawer">
   <div class="drawer-head">
     <h3 id="drawerTitle">Tu carrito</h3>
@@ -376,7 +398,7 @@ function renderProducts(){
         <div class="grid">
           ${items.map(p=>`
             <div class="card">
-              <div class="icon">${p.img ? `<img src="${p.img}" alt="${p.name}" class="prod-img">` : p.icon}</div>
+              <div class="icon">${p.img ? `<img src="${p.img}" alt="${p.name}" class="prod-img" data-id="${p.id}">` : p.icon}</div>
               <div class="name">${p.name}</div>
               <div class="price">${fmt(p.price)}</div>
               <button class="add-btn" data-id="${p.id}">Agregar</button>
@@ -386,6 +408,17 @@ function renderProducts(){
       </div>
     `;
   }).join('');
+
+  main.querySelectorAll('.prod-img').forEach(img=>{
+    img.addEventListener('click', ()=>{
+      const p = PRODUCTS.find(x=>x.id===Number(img.dataset.id));
+      if(!p) return;
+      document.getElementById('lbImg').src = p.img;
+      document.getElementById('lbName').textContent = p.name;
+      document.getElementById('lbPrice').textContent = fmt(p.price);
+      document.getElementById('lightbox').classList.add('open');
+    });
+  });
 
   main.querySelectorAll('.add-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -484,6 +517,14 @@ document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
 overlay.addEventListener('click', closeDrawer);
 document.getElementById('checkoutBtn').addEventListener('click', showCheckoutStep);
 document.getElementById('backToCart').addEventListener('click', showCartStep);
+
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lightbox').addEventListener('click', (e)=>{
+  if(e.target.id === 'lightbox') closeLightbox();
+});
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+}
 
 document.getElementById('copyAlias').addEventListener('click', (e)=>{
   navigator.clipboard?.writeText(MP_ALIAS);
