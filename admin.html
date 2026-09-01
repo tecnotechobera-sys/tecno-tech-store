@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tecno Tech Store · Administrador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a; --bg-panel:#141414; --bg-card:#181818; --line:#262626;
+    --lime:#8CC63F; --lime-dark:#6ea82c; --text:#f2f2f2; --muted:#9a9a9a; --danger:#e05c5c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif;}
+  h1,h2,.brand{font-family:'Space Grotesk',sans-serif;}
+  button, input, select{font-family:inherit;}
+  button{cursor:pointer;}
+
+  header{
+    border-bottom:1px solid var(--line); padding:16px 20px; display:flex;
+    align-items:center; justify-content:space-between; position:sticky; top:0; background:var(--bg); z-index:10;
+  }
+  .brand{font-size:1.05rem; font-weight:700;}
+  .brand span{color:var(--lime);}
+  .logout-btn{background:none; border:1px solid var(--line); color:var(--muted); border-radius:8px; padding:7px 12px; font-size:.78rem;}
+  .logout-btn:hover{border-color:var(--danger); color:var(--danger);}
+
+  main{max-width:760px; margin:0 auto; padding:22px 18px 80px;}
+
+  /* --- Password gate --- */
+  .gate{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; gap:16px;
+  }
+  .gate h1{font-size:1.3rem; text-align:center;}
+  .gate p{color:var(--muted); font-size:.85rem; text-align:center; max-width:32ch;}
+  .gate input{
+    width:100%; max-width:280px; background:var(--bg-card); border:1px solid var(--line); color:var(--text);
+    border-radius:10px; padding:12px 14px; font-size:1rem; text-align:center;
+  }
+  .gate button{
+    width:100%; max-width:280px; background:var(--lime); color:#0a0a0a; border:none; border-radius:10px;
+    padding:12px 0; font-size:.92rem; font-weight:700;
+  }
+  .gate .err{color:var(--danger); font-size:.82rem; min-height:1em;}
+
+  /* --- Card / form --- */
+  .panel{background:var(--bg-card); border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:22px;}
+  .panel h2{font-size:1rem; font-weight:600; margin-bottom:14px;}
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:.78rem; color:var(--muted); margin-bottom:5px;}
+  .field input, .field select{
+    width:100%; background:var(--bg-panel); border:1px solid var(--line); color:var(--text);
+    border-radius:8px; padding:10px 12px; font-size:.9rem;
+  }
+  .field input:focus, .field select:focus{outline:none; border-color:var(--lime);}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .file-preview{
+    width:100%; height:130px; border-radius:10px; background:var(--bg-panel); border:1px dashed var(--line);
+    display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:10px; color:var(--muted); font-size:.8rem;
+  }
+  .file-preview img{width:100%; height:100%; object-fit:cover;}
+  .primary-btn{
+    width:100%; background:var(--lime); color:#0a0a0a; border:none; border-radius:10px; padding:12px 0;
+    font-size:.9rem; font-weight:700; margin-top:6px;
+  }
+  .primary-btn:hover{background:var(--lime-dark);}
+  .primary-btn:disabled{background:var(--bg-panel); color:var(--muted);}
+  .status-msg{font-size:.8rem; margin-top:8px; min-height:1.1em;}
+  .status-msg.ok{color:var(--lime);}
+  .status-msg.err{color:var(--danger);}
+
+  /* --- Product list --- */
+  .list-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
+  .list-head h2{font-size:1rem; font-weight:600;}
+  .list-head small{color:var(--muted); font-size:.78rem;}
+  .prod-row{
+    display:flex; gap:12px; align-items:center; background:var(--bg-card); border:1px solid var(--line);
+    border-radius:12px; padding:12px; margin-bottom:10px;
+  }
+  .prod-thumb{
+    width:52px; height:52px; border-radius:8px; background:var(--bg-panel); flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center; overflow:hidden; font-size:1.4rem; position:relative;
+  }
+  .prod-thumb img{width:100%; height:100%; object-fit:cover;}
+  .prod-thumb input[type=file]{
+    position:absolute; inset:0; opacity:0; cursor:pointer;
+  }
+  .prod-main{flex:1; min-width:0; display:flex; flex-direction:column; gap:6px;}
+  .prod-main input, .prod-main select{
+    background:var(--bg-panel); border:1px solid var(--line); color:var(--text); border-radius:6px;
+    padding:6px 8px; font-size:.82rem; width:100%;
+  }
+  .prod-main .r{display:flex; gap:6px;}
+  .prod-actions{display:flex; flex-direction:column; gap:6px;}
+  .icon-btn{
+    background:var(--bg-panel); border:1px solid var(--line); color:var(--text); border-radius:7px;
+    padding:6px 9px; font-size:.75rem; white-space:nowrap;
+  }
+  .icon-btn:hover{border-color:var(--lime);}
+  .icon-btn.danger:hover{border-color:var(--danger); color:var(--danger);}
+  .empty{color:var(--muted); font-size:.85rem; text-align:center; padding:30px 0;}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <h1>Tecno Tech Store <span style="color:var(--lime)">· Admin</span></h1>
+  <p>Ingresá la clave de administrador para cargar y editar productos.</p>
+  <input type="password" id="pwInput" placeholder="Clave">
+  <button id="pwBtn">Entrar</button>
+  <div class="err" id="pwErr"></div>
+</div>
+
+<div id="app" style="display:none;">
+  <header>
+    <div class="brand">Tecno Tech <span>Admin</span></div>
+    <button class="logout-btn" id="logoutBtn">Salir</button>
+  </header>
+
+  <main>
+    <div class="panel">
+      <h2>Cargar producto nuevo</h2>
+
+      <div class="file-preview" id="newPreview">Sin foto</div>
+      <div class="field">
+        <label>Foto (opcional)</label>
+        <input type="file" id="newFile" accept="image/*">
+      </div>
+
+      <div class="field">
+        <label>Nombre del producto</label>
+        <input type="text" id="newName" placeholder="Ej: Auriculares Bluetooth">
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Categoría</label>
+          <select id="newCat"></select>
+        </div>
+        <div class="field">
+          <label>Precio ($)</label>
+          <input type="number" id="newPrice" placeholder="0">
+        </div>
+      </div>
+
+      <button class="primary-btn" id="saveNewBtn">Agregar producto</button>
+      <div class="status-msg" id="newStatus"></div>
+    </div>
+
+    <div class="list-head">
+      <h2>Productos cargados</h2>
+      <small id="countLbl"></small>
+    </div>
+    <div id="prodList"></div>
+  </main>
+</div>
+
+<script>
+/* ================= CONFIGURACIÓN ================= */
+// Deben coincidir EXACTO con lo que pusiste en tecno-tech-store.html
+const SUPABASE_URL = 'https://fwkzlnuyjvzzgrylwvzk.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3a3psbnV5anZ6emdyeWx3dnprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyOTE2MjIsImV4cCI6MjEwMzg2NzYyMn0.Y7TR_Ch1-6X1WKqZ66He-PGnGpIm3Shr-Ux60yeGNCk';
+const BUCKET = 'fotos';
+
+// Clave simple para entrar al panel. Cambiala por la que quieras.
+// OJO: esto es solo un freno básico, no seguridad real (ver nota en el chat).
+const ADMIN_PASSWORD = 'tecnotech2026';
+
+const CATEGORIES = [
+  { id:'electronica', name:'Electrónica' },
+  { id:'informatica', name:'Informática' },
+  { id:'blanqueria', name:'Blanquería' },
+  { id:'bazar', name:'Bazar' },
+  { id:'ferreteria', name:'Ferretería' },
+  { id:'motos', name:'Repuestos de motos' },
+  { id:'neumaticos', name:'Neumáticos' },
+  { id:'nautica', name:'Náutica y pesca' },
+  { id:'natacion', name:'Artículos de natación' },
+];
+/* =================================================== */
+
+const fmt = n => '$' + Number(n||0).toLocaleString('es-AR');
+const headers = () => ({
+  apikey: SUPABASE_ANON_KEY,
+  Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+  'Content-Type': 'application/json',
+});
+
+/* ---------- Login gate ---------- */
+document.getElementById('pwBtn').addEventListener('click', tryLogin);
+document.getElementById('pwInput').addEventListener('keydown', e=>{ if(e.key==='Enter') tryLogin(); });
+
+function tryLogin(){
+  const val = document.getElementById('pwInput').value;
+  if(val === ADMIN_PASSWORD){
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    init();
+  } else {
+    document.getElementById('pwErr').textContent = 'Clave incorrecta';
+  }
+}
+document.getElementById('logoutBtn').addEventListener('click', ()=> location.reload());
+
+/* ---------- Init ---------- */
+function fillCatSelect(sel){
+  sel.innerHTML = CATEGORIES.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+}
+
+function init(){
+  fillCatSelect(document.getElementById('newCat'));
+  loadList();
+}
+
+/* ---------- Subida de foto a Supabase Storage ---------- */
+async function uploadPhoto(file){
+  const filename = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g,'_')}`;
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${BUCKET}/${filename}`, {
+    method: 'POST',
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      'Content-Type': file.type,
+    },
+    body: file,
+  });
+  if(!res.ok) throw new Error('No se pudo subir la foto');
+  return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${filename}`;
+}
+
+/* ---------- Preview de la foto nueva ---------- */
+document.getElementById('newFile').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  const prev = document.getElementById('newPreview');
+  if(!file){ prev.textContent = 'Sin foto'; prev.innerHTML = 'Sin foto'; return; }
+  const url = URL.createObjectURL(file);
+  prev.innerHTML = `<img src="${url}">`;
+});
+
+/* ---------- Agregar producto ---------- */
+document.getElementById('saveNewBtn').addEventListener('click', async ()=>{
+  const name = document.getElementById('newName').value.trim();
+  const cat = document.getElementById('newCat').value;
+  const price = Number(document.getElementById('newPrice').value);
+  const file = document.getElementById('newFile').files[0];
+  const status = document.getElementById('newStatus');
+  const btn = document.getElementById('saveNewBtn');
+
+  if(!name || !price){
+    status.textContent = 'Completá al menos nombre y precio.';
+    status.className = 'status-msg err';
+    return;
+  }
+
+  btn.disabled = true;
+  status.className = 'status-msg';
+  status.textContent = file ? 'Subiendo foto…' : 'Guardando…';
+
+  try{
+    let fotoUrl = '';
+    if(file) fotoUrl = await uploadPhoto(file);
+
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/productos`, {
+      method: 'POST',
+      headers: { ...headers(), Prefer: 'return=representation' },
+      body: JSON.stringify([{ nombre:name, categoria:cat, precio:price, foto:fotoUrl, activo:true }]),
+    });
+    if(!res.ok) throw new Error('No se pudo guardar el producto');
+
+    status.textContent = '¡Producto agregado!';
+    status.className = 'status-msg ok';
+    document.getElementById('newName').value = '';
+    document.getElementById('newPrice').value = '';
+    document.getElementById('newFile').value = '';
+    document.getElementById('newPreview').innerHTML = 'Sin foto';
+    loadList();
+  } catch(err){
+    console.error(err);
+    status.textContent = 'Error: ' + err.message;
+    status.className = 'status-msg err';
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+/* ---------- Listar productos ---------- */
+async function loadList(){
+  const list = document.getElementById('prodList');
+  list.innerHTML = `<p class="empty">Cargando…</p>`;
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/productos?select=*&order=id.desc`, { headers: headers() });
+    if(!res.ok) throw new Error('No se pudo leer la base de datos');
+    const items = await res.json();
+    document.getElementById('countLbl').textContent = `${items.length} productos`;
+
+    if(!items.length){
+      list.innerHTML = `<p class="empty">Todavía no cargaste productos.</p>`;
+      return;
+    }
+
+    list.innerHTML = items.map(p => `
+      <div class="prod-row" data-id="${p.id}">
+        <div class="prod-thumb">
+          ${p.foto ? `<img src="${p.foto}">` : '🛍️'}
+          <input type="file" accept="image/*" class="photo-input">
+        </div>
+        <div class="prod-main">
+          <input type="text" class="f-name" value="${(p.nombre||'').replace(/"/g,'&quot;')}">
+          <div class="r">
+            <select class="f-cat"></select>
+            <input type="number" class="f-price" value="${p.precio||0}">
+          </div>
+        </div>
+        <div class="prod-actions">
+          <button class="icon-btn save-btn">Guardar</button>
+          <button class="icon-btn" data-active="${p.activo}">${p.activo ? 'Ocultar' : 'Mostrar'}</button>
+          <button class="icon-btn danger del-btn">Eliminar</button>
+        </div>
+      </div>
+    `).join('');
+
+    // Completar selects de categoría con el valor actual
+    items.forEach(p=>{
+      const row = list.querySelector(`.prod-row[data-id="${p.id}"] .f-cat`);
+      fillCatSelect(row);
+      row.value = p.categoria;
+    });
+
+    // Guardar cambios (nombre/categoria/precio)
+    list.querySelectorAll('.save-btn').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const row = btn.closest('.prod-row');
+        const id = row.dataset.id;
+        const body = {
+          nombre: row.querySelector('.f-name').value.trim(),
+          categoria: row.querySelector('.f-cat').value,
+          precio: Number(row.querySelector('.f-price').value),
+        };
+        btn.textContent = 'Guardando…';
+        await fetch(`${SUPABASE_URL}/rest/v1/productos?id=eq.${id}`, {
+          method:'PATCH', headers: headers(), body: JSON.stringify(body),
+        });
+        btn.textContent = 'Guardado ✓';
+        setTimeout(()=> btn.textContent='Guardar', 1200);
+      });
+    });
+
+    // Mostrar / ocultar
+    list.querySelectorAll('.icon-btn[data-active]').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const row = btn.closest('.prod-row');
+        const id = row.dataset.id;
+        const nowActive = btn.dataset.active === 'true';
+        await fetch(`${SUPABASE_URL}/rest/v1/productos?id=eq.${id}`, {
+          method:'PATCH', headers: headers(), body: JSON.stringify({ activo: !nowActive }),
+        });
+        loadList();
+      });
+    });
+
+    // Eliminar
+    list.querySelectorAll('.del-btn').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const row = btn.closest('.prod-row');
+        const id = row.dataset.id;
+        if(!confirm('¿Eliminar este producto?')) return;
+        await fetch(`${SUPABASE_URL}/rest/v1/productos?id=eq.${id}`, {
+          method:'DELETE', headers: headers(),
+        });
+        loadList();
+      });
+    });
+
+    // Cambiar foto
+    list.querySelectorAll('.photo-input').forEach(input=>{
+      input.addEventListener('change', async (e)=>{
+        const file = e.target.files[0];
+        if(!file) return;
+        const row = input.closest('.prod-row');
+        const id = row.dataset.id;
+        try{
+          const url = await uploadPhoto(file);
+          await fetch(`${SUPABASE_URL}/rest/v1/productos?id=eq.${id}`, {
+            method:'PATCH', headers: headers(), body: JSON.stringify({ foto:url }),
+          });
+          loadList();
+        } catch(err){ alert('Error subiendo la foto: ' + err.message); }
+      });
+    });
+
+  } catch(err){
+    console.error(err);
+    list.innerHTML = `<p class="empty">Error cargando productos. Revisá la conexión con Supabase.</p>`;
+  }
+}
+</script>
+</body>
+</html>
