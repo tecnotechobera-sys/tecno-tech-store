@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tecno Tech Oberá - Reparación de celulares, computadoras, TV Box, accesorios y repuestos.">
+<title>Tecno Tech | Tecnología y Reparaciones</title>
+<style>
+:root{
+  --green:#19d46b;
+  --green2:#0da957;
+  --black:#070909;
+  --dark:#0d1210;
+  --card:#111815;
+  --white:#f5f7f6;
+  --muted:#aab5af;
+  --line:rgba(255,255,255,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:var(--black);
+  color:var(--white);
+  line-height:1.5;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1160px,92%);margin:auto}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(7,9,9,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.navbar{height:74px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--green)}
+.navlinks{display:flex;gap:26px;font-size:14px;color:#d7ddd9}
+.navlinks a:hover{color:var(--green)}
+.navbtn{
+  padding:11px 18px;border-radius:12px;
+  background:var(--green);color:#031109;font-weight:800;font-size:14px;
+}
+
+/* HERO */
+.hero{
+  min-height:680px;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 80% 35%,rgba(25,212,107,.18),transparent 30%),
+    radial-gradient(circle at 15% 80%,rgba(25,212,107,.08),transparent 28%),
+    linear-gradient(135deg,#070909 0%,#0b100e 55%,#07110c 100%);
+}
+.hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.25;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:42px 42px;
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;position:relative;z-index:2}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(25,212,107,.35);
+  background:rgba(25,212,107,.08);color:#8ff3b8;
+  padding:8px 13px;border-radius:999px;font-size:12px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.7px;margin-bottom:20px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+h1{font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-3px;margin-bottom:24px}
+h1 span{color:var(--green)}
+.hero p{font-size:19px;color:var(--muted);max-width:610px;margin-bottom:32px}
+.actions{display:flex;gap:13px;flex-wrap:wrap}
+.primary,.secondary{
+  padding:15px 21px;border-radius:13px;font-weight:850;
+  display:inline-flex;align-items:center;gap:9px;
+}
+.primary{background:var(--green);color:#031109;box-shadow:0 12px 35px rgba(25,212,107,.18)}
+.secondary{border:1px solid var(--line);background:#101512}
+.primary:hover{background:#35e67e;transform:translateY(-2px)}
+.secondary:hover{border-color:rgba(25,212,107,.5)}
+.hero-card{
+  position:relative;border:1px solid var(--line);border-radius:28px;
+  padding:26px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  box-shadow:0 35px 90px rgba(0,0,0,.5);
+}
+.device{
+  height:330px;border-radius:22px;
+  background:
+    radial-gradient(circle at 50% 38%,rgba(25,212,107,.28),transparent 25%),
+    linear-gradient(145deg,#131c17,#080b0a);
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.device:before{
+  content:"";width:150px;height:220px;border-radius:28px;
+  border:6px solid #202a25;background:#070a08;
+  box-shadow:0 0 70px rgba(25,212,107,.15);
+}
+.device:after{
+  content:"TECNO\nTECH";white-space:pre;text-align:center;
+  position:absolute;font-size:20px;font-weight:900;line-height:1.1;color:var(--green);
+}
+.floating{
+  position:absolute;background:#101613;border:1px solid var(--line);
+  padding:13px 15px;border-radius:14px;font-size:12px;box-shadow:0 14px 35px #0008;
+}
+.f1{left:-18px;top:50px}.f2{right:-18px;bottom:45px}
+.floating b{display:block;font-size:15px;color:#fff}.floating span{color:var(--muted)}
+
+/* TRUST */
+.trust{border-bottom:1px solid var(--line);background:#0b0f0d}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);padding:22px 0;gap:15px}
+.trust-item{text-align:center;border-right:1px solid var(--line)}
+.trust-item:last-child{border:0}
+.trust-item strong{display:block;font-size:14px}.trust-item small{color:var(--muted)}
+
+/* SECTIONS */
+section{padding:95px 0}
+.section-head{max-width:700px;margin-bottom:42px}
+.kicker{color:var(--green);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.6px;margin-bottom:10px}
+h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-1.7px;margin-bottom:14px}
+.section-head p{color:var(--muted);font-size:17px}
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{
+  background:linear-gradient(160deg,#121915,#0d1210);
+  border:1px solid var(--line);border-radius:20px;padding:25px;
+  min-height:205px;transition:.25s;
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(25,212,107,.38)}
+.icon{
+  width:46px;height:46px;border-radius:14px;background:rgba(25,212,107,.1);
+  display:grid;place-items:center;color:var(--green);font-size:23px;margin-bottom:22px;
+}
+.card h3{margin-bottom:9px}.card p{color:var(--muted);font-size:14px}
+
+/* OFFER */
+.offer{
+  border:1px solid rgba(25,212,107,.24);border-radius:28px;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(25,212,107,.15),transparent 28%),
+    linear-gradient(120deg,#101713,#09100c);
+  padding:45px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px;
+}
+.offer h2{margin-bottom:10px}.offer p{color:var(--muted);max-width:650px}
+.offer-list{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.pill{padding:8px 11px;border-radius:999px;background:#16211b;border:1px solid var(--line);font-size:12px}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{padding:28px;border:1px solid var(--line);border-radius:20px;background:#0e1311}
+.number{font-size:12px;color:var(--green);font-weight:900;margin-bottom:25px}
+.step h3{margin-bottom:8px}.step p{color:var(--muted);font-size:14px}
+
+/* CONTACT */
+.contact{
+  background:linear-gradient(180deg,#0a0e0c,#070909);
+  border-top:1px solid var(--line);
+}
+.contact-box{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.contact-card{border:1px solid var(--line);background:#0f1412;border-radius:22px;padding:30px}
+.contact-card h3{margin-bottom:12px}.contact-card p{color:var(--muted);margin-bottom:20px}
+.info{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.info:last-child{border:0}.info b{display:block}.info span{font-size:13px;color:var(--muted)}
+.whatsapp{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:16px;background:var(--green);color:#031109;
+  border-radius:13px;font-weight:900;margin-top:20px;
+}
+
+/* FOOTER */
+footer{padding:28px 0;border-top:1px solid var(--line);color:#7f8a84;font-size:12px}
+footer .container{display:flex;justify-content:space-between;gap:15px}
+
+/* FLOAT */
+.float-wa{
+  position:fixed;right:20px;bottom:20px;z-index:200;
+  width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+  background:var(--green);color:#031109;font-size:25px;font-weight:900;
+  box-shadow:0 10px 35px rgba(25,212,107,.3);
+}
+
+/* MOBILE */
+@media(max-width:850px){
+  .navlinks{display:none}
+  .hero{min-height:auto;padding:75px 0}
+  .hero-grid,.contact-box,.offer{grid-template-columns:1fr}
+  .hero-card{max-width:520px;margin:auto}
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-item:nth-child(2){border:0}
+  .services{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  h1{letter-spacing:-2px}
+  .services{grid-template-columns:1fr}
+  section{padding:70px 0}
+  .offer{padding:28px}
+  .trust-grid{grid-template-columns:1fr 1fr}
+  .trust-item{font-size:12px}
+  footer .container{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container navbar">
+    <a class="logo" href="#">TECNO<span>TECH</span></a>
+    <div class="navlinks">
+      <a href="#servicios">Servicios</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#como">Cómo trabajamos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a class="navbtn" href="https://wa.me/543755223737?text=Hola%20Tecno%20Tech%2C%20quiero%20hacer%20una%20consulta." target="_blank">WhatsApp</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="badge"><span class="dot"></span> Tecnología · Reparación · Soluciones</div>
+      <h1>Tu tecnología.<br><span>En buenas manos.</span></h1>
+      <p>Reparamos, actualizamos y mejoramos tus equipos. Celulares, computadoras, TV Box, accesorios y repuestos en un solo lugar.</p>
+      <div class="actions">
+        <a class="primary" href="https://wa.me/543755223737?text=Hola%20Tecno%20Tech%2C%20quiero%20consultar%20por%20un%20producto%20o%20reparaci%C3%B3n." target="_blank">💬 Consultar por WhatsApp</a>
+        <a class="secondary" href="#ofertas">🔥 Ver oportunidades</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="device"></div>
+      <div class="floating f1"><b>🔧 Reparaciones</b><span>Servicio y diagnóstico</span></div>
+      <div class="floating f2"><b>📱 Tecnología</b><span>Productos y accesorios</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="container trust-grid">
+    <div class="trust-item"><strong>📍 Oberá</strong><small>Av. Italia 1459</small></div>
+    <div class="trust-item"><strong>🛠️ Experiencia</strong><small>Soluciones tecnológicas</small></div>
+    <div class="trust-item"><strong>📲 Atención directa</strong><small>Por WhatsApp</small></div>
+    <div class="trust-item"><strong>⚡ Soluciones</strong><small>Para tu día a día</small></div>
+  </div>
+</div>
+
+<section id="servicios">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Qué hacemos</div>
+      <h2>Todo lo que necesitás de tecnología, en un solo lugar.</h2>
+      <p>Desde una reparación hasta un nuevo equipo o accesorio. Consultanos y te orientamos.</p>
+    </div>
+
+    <div class="services">
+      <article class="card">
+        <div class="icon">📱</div>
+        <h3>Celulares</h3>
+        <p>Reparación, cambio de módulos, baterías, tapas, pin de carga y más.</p>
+      </article>
+      <article class="card">
+        <div class="icon">💻</div>
+        <h3>Computación</h3>
+        <p>Windows, optimización, hardware, mantenimiento y puesta a punto de PCs.</p>
+      </article>
+      <article class="card">
+        <div class="icon">📺</div>
+        <h3>TV Box</h3>
+        <p>Actualización, configuración y puesta a punto de equipos compatibles.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🎮</div>
+        <h3>Accesorios</h3>
+        <p>Controles remotos, repuestos, accesorios y productos para tu tecnología.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="ofertas">
+  <div class="container">
+    <div class="offer">
+      <div>
+        <div class="kicker">Oportunidades Tecno Tech</div>
+        <h2>¿Buscás algo? Mejor consultá antes.</h2>
+        <p>Publicamos promociones y disponibilidad de productos, repuestos y servicios. Escribinos y preguntá qué tenemos disponible hoy.</p>
+        <div class="offer-list">
+          <span class="pill">📱 Celulares</span>
+          <span class="pill">💥 Módulos</span>
+          <span class="pill">🎮 Accesorios</span>
+          <span class="pill">💻 PC</span>
+          <span class="pill">📺 TV Box</span>
+        </div>
+      </div>
+      <a class="primary" href="https://wa.me/543755223737?text=Hola%20Tecno%20Tech%2C%20quiero%20saber%20qu%C3%A9%20ofertas%20tienen%20disponibles%20hoy." target="_blank">🔥 Quiero ver ofertas</a>
+    </div>
+  </div>
+</section>
+
+<section id="como">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Simple y directo</div>
+      <h2>Contanos qué necesitás.</h2>
+      <p>No hace falta que sepas exactamente qué tiene tu equipo. Mandanos una foto o explicanos el problema.</p>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <div class="number">01 — ESCRIBINOS</div>
+        <h3>Mandanos un WhatsApp</h3>
+        <p>Contanos qué equipo tenés o qué estás buscando.</p>
+      </article>
+      <article class="step">
+        <div class="number">02 — TE ASESORAMOS</div>
+        <h3>Buscamos la solución</h3>
+        <p>Te orientamos sobre reparación, producto o accesorio.</p>
+      </article>
+      <article class="step">
+        <div class="number">03 — RESOLVEMOS</div>
+        <h3>Manos a la obra</h3>
+        <p>Coordinamos la reparación, compra o entrega.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Estamos para ayudarte</div>
+      <h2>¿Qué necesitás solucionar hoy?</h2>
+      <p>La forma más rápida de obtener una respuesta es escribirnos directamente.</p>
+    </div>
+
+    <div class="contact-box">
+      <div class="contact-card">
+        <h3>📲 Hablemos por WhatsApp</h3>
+        <p>Podés mandarnos una foto de tu equipo, consultar un precio o preguntarnos por disponibilidad.</p>
+        <a class="whatsapp" href="https://wa.me/543755223737?text=Hola%20Tecno%20Tech%2C%20llegu%C3%A9%20desde%20la%20web%20y%20quiero%20hacer%20una%20consulta." target="_blank">💬 Escribir ahora</a>
+      </div>
+
+      <div class="contact-card">
+        <h3>📍 Visitá Tecno Tech</h3>
+        <div class="info"><div>📌</div><div><b>Dirección</b><span>Av. Italia 1459, Oberá, Misiones</span></div></div>
+        <div class="info"><div>🕐</div><div><b>Horario</b><span>8 a 12 hs · 14 a 20 hs</span></div></div>
+        <div class="info"><div>📞</div><div><b>WhatsApp</b><span>3755 223737</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>© 2026 Tecno Tech · Tecnología y soluciones</span>
+    <span>Oberá, Misiones · Av. Italia 1459</span>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/543755223737?text=Hola%20Tecno%20Tech%2C%20quiero%20hacer%20una%20consulta." target="_blank" aria-label="WhatsApp">✆</a>
+
+</body>
+</html>
