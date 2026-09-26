@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Internet Ilimitado Personal — Tecno Tech</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050A14;
+    --surface: #0D1626;
+    --surface2: #131E30;
+    --accent: #00C6FF;
+    --accent2: #0072FF;
+    --green: #00E676;
+    --red: #FF3D57;
+    --text: #E8F0FE;
+    --muted: #7B90B8;
+    --border: rgba(0,198,255,0.12);
+    --locked-bg: #0D1626;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0;
+    background: rgba(5,10,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 100;
+    top: env(safe-area-inset-top, 0px);
+  }
+  .logo { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 800; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+  .nav-badge {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    color: #fff; font-size: 0.72rem; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 72px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(0,114,255,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,198,255,0.08); border: 1px solid var(--border);
+    border-radius: 30px; padding: 6px 16px;
+    font-size: 0.8rem; font-weight: 600; color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2rem, 7vw, 3.4rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+    max-width: 720px; margin-left: auto; margin-right: auto;
+  }
+  h1 .highlight {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--muted); font-size: 1.05rem; max-width: 520px;
+    margin: 0 auto 40px;
+  }
+
+  /* PRICE TAG */
+  .price-tag {
+    display: inline-flex; flex-direction: column; align-items: center;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px 40px; margin-bottom: 40px;
+  }
+  .price-label { font-size: 0.8rem; color: var(--muted); text-transform: none; margin-bottom: 4px; }
+  .price-amount { font-family: 'Sora', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--accent); }
+  .price-sub { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+  /* STEPS */
+  .steps {
+    max-width: 860px; margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+  .steps-title {
+    text-align: center; font-family: 'Sora', sans-serif;
+    font-size: 1.5rem; font-weight: 800; margin-bottom: 36px; letter-spacing: -0.5px;
+  }
+  .step-list { display: flex; flex-direction: column; gap: 20px; }
+  .step-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px 28px;
+    display: flex; align-items: flex-start; gap: 20px;
+    transition: border-color 0.3s;
+  }
+  .step-card:hover { border-color: rgba(0,198,255,0.3); }
+  .step-num {
+    min-width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1rem; color: #fff;
+  }
+  .step-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .step-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+  .step-body a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+  /* TRANSFER BLOCK */
+  .transfer-block {
+    background: var(--surface2); border: 1px solid rgba(0,198,255,0.2);
+    border-radius: 12px; padding: 16px 20px; margin-top: 14px;
+    font-size: 0.88rem;
+  }
+  .transfer-block .tf-row { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .transfer-block .tf-row:last-child { border-bottom: none; }
+  .tf-label { color: var(--muted); }
+  .tf-val { font-weight: 700; color: var(--text); text-align: right; }
+  .copy-btn {
+    background: rgba(0,198,255,0.1); border: 1px solid var(--border);
+    color: var(--accent); font-size: 0.72rem; font-weight: 700;
+    padding: 2px 10px; border-radius: 6px; cursor: pointer;
+    transition: background 0.2s; margin-left: 8px; vertical-align: middle;
+  }
+  .copy-btn:hover { background: rgba(0,198,255,0.22); }
+
+  /* UNLOCK SECTION */
+  .unlock-section {
+    max-width: 580px; margin: 0 auto 80px;
+    padding: 0 24px;
+  }
+  .unlock-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px 32px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .lock-icon {
+    font-size: 3rem; margin-bottom: 16px;
+    filter: grayscale(0.2);
+  }
+  .unlock-card h2 {
+    font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 800;
+    margin-bottom: 10px; letter-spacing: -0.3px;
+  }
+  .unlock-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+
+  /* Locked state */
+  .unlock-main-btn {
+    width: 100%; padding: 18px;
+    border-radius: 14px; border: none;
+    font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 800;
+    cursor: pointer; transition: all 0.25s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    letter-spacing: -0.3px;
+  }
+  .unlock-main-btn.locked {
+    background: linear-gradient(135deg, #1a2540, #1e2e4a);
+    color: #4a6080; cursor: not-allowed;
+    border: 1.5px solid rgba(74,96,128,0.3);
+  }
+  .unlock-main-btn.unlocked {
+    background: linear-gradient(135deg, #00c853, #00e676);
+    color: #003820;
+  }
+  .unlock-main-btn.unlocked:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,230,118,0.3);
+  }
+
+  /* Code input */
+  .code-section { margin-top: 20px; display: none; }
+  .code-section.visible { display: block; }
+  .code-input-wrap {
+    display: flex; gap: 10px;
+  }
+  .code-input {
+    flex: 1; background: var(--surface2); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 12px 16px; color: var(--text);
+    font-size: 1rem; font-family: 'Inter', monospace; font-weight: 600;
+    letter-spacing: 2px; outline: none; transition: border-color 0.2s;
+  }
+  .code-input:focus { border-color: var(--accent); }
+  .code-input.error { border-color: var(--red); }
+  .verify-btn {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    color: #fff; border: none; border-radius: 10px; padding: 12px 20px;
+    font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .verify-btn:hover { opacity: 0.88; }
+  .error-msg { color: var(--red); font-size: 0.82rem; margin-top: 8px; display: none; }
+  .success-msg { color: var(--green); font-size: 0.88rem; margin-top: 8px; display: none; }
+
+  .locked-overlay {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 8px,
+      rgba(0,0,0,0.04) 8px, rgba(0,0,0,0.04) 16px
+    );
+    pointer-events: none; border-radius: 20px;
+  }
+  .lock-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,61,87,0.1); border: 1px solid rgba(255,61,87,0.25);
+    color: #ff6b80; border-radius: 20px; padding: 4px 14px;
+    font-size: 0.78rem; font-weight: 700; margin-bottom: 20px;
+  }
+  .unlocked-badge {
+    display: none; align-items: center; gap: 6px;
+    background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.3);
+    color: var(--green); border-radius: 20px; padding: 4px 14px;
+    font-size: 0.78rem; font-weight: 700; margin-bottom: 20px;
+  }
+
+  /* REVIEWS */
+  .reviews {
+    max-width: 900px; margin: 0 auto 80px; padding: 0 24px;
+  }
+  .reviews-title {
+    text-align: center; font-family: 'Sora', sans-serif;
+    font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;
+  }
+  .reviews-sub { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 36px; }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .review-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px 22px;
+  }
+  .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1rem; color: #fff; flex-shrink: 0;
+  }
+  .reviewer-info .name { font-weight: 700; font-size: 0.92rem; }
+  .reviewer-info .location { font-size: 0.75rem; color: var(--muted); }
+  .stars { color: #FFD600; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 10px; }
+  .review-text { font-size: 0.86rem; color: #a8c0df; line-height: 1.6; }
+  .review-date { font-size: 0.72rem; color: var(--muted); margin-top: 10px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 32px 24px;
+    text-align: center; color: var(--muted); font-size: 0.82rem;
+  }
+  footer strong { color: var(--accent); }
+
+  /* WHATSAPP FLOAT */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 24px;
+    background: #25D366; color: #fff;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; text-decoration: none;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+    z-index: 200; transition: transform 0.2s;
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+  .wa-float:hover { transform: scale(1.08); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 52px 20px 40px; }
+    .steps, .unlock-section, .reviews { padding: 0 16px 60px; }
+    .price-tag { padding: 20px 28px; }
+    .unlock-card { padding: 28px 20px; }
+    .tf-val { font-size: 0.82rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Tecno<span>Tech</span></div>
+  <div class="nav-badge">Oberá, Misiones</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Exclusivo para clientes Personal Argentina</div>
+  <h1>Internet <span class="highlight">ilimitado</span><br>en tu celular Personal</h1>
+  <p class="hero-sub">Activá datos ilimitados en tu línea Personal sin cambiar de plan. Sin cortes, sin límite de GB.</p>
+  <div class="price-tag">
+    <span class="price-label">Pago único, acceso de por vida</span>
+    <span class="price-amount">$2.500</span>
+    <span class="price-sub">Transferencia bancaria · Pago seguro</span>
+  </div>
+</section>
+
+<!-- PASOS -->
+<section class="steps">
+  <div class="steps-title">Así funciona — 3 pasos simples</div>
+  <div class="step-list">
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Realizá la transferencia de $2.500</h3>
+        <p>Transferí el pago único a la siguiente cuenta bancaria. Guardá el comprobante.</p>
+        <div class="transfer-block">
+          <div class="tf-row">
+            <span class="tf-label">Titular</span>
+            <span class="tf-val">Gonzalo Matias Lepori</span>
+          </div>
+          <div class="tf-row">
+            <span class="tf-label">CBU</span>
+            <span class="tf-val" id="cbu-val"><!-- 0000177500091983182177 --><em style="color:var(--muted);font-style:normal;font-size:0.8rem;">0000177500091983182177</em><button class="copy-btn" onclick="copyText('cbu-val', this)">Copiar</button></span>
+          </div>
+          <div class="tf-row">
+            <span class="tf-label">Alias</span>
+            <span class="tf-val" id="alias-val"><!-- MUNDO95 -->MUNDO95<button class="copy-btn" onclick="copyText('alias-val', this)">Copiar</button></span>
+          </div>
+          <div class="tf-row">
+            <span class="tf-label">Banco</span>
+            <span class="tf-val"><!-- REEMPLAZÁ CON TU BANCO -->ASTROPAY</span>
+          </div>
+          <div class="tf-row">
+            <span class="tf-label">Monto exacto</span>
+            <span class="tf-val" style="color:var(--accent);">$2.500,00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Enviá el comprobante por WhatsApp</h3>
+        <p>Mandá la captura de pantalla de la transferencia a nuestro WhatsApp. En minutos recibís tu código personal de desbloqueo.</p>
+        <p style="margin-top:10px;"><a href="https://wa.me/5493755646868?text=Hola%2C%20realic%C3%A9%20la%20transferencia%20para%20el%20internet%20ilimitado%20Personal.%20Te%20env%C3%ADo%20el%20comprobante." target="_blank">👉 Abrir WhatsApp y enviar comprobante</a></p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Ingresá tu código y accedé al tutorial</h3>
+        <p>Una vez que recibas el código por WhatsApp, ingresalo abajo para desbloquear el acceso al método completo paso a paso.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DESBLOQUEO -->
+<section class="unlock-section">
+  <div class="unlock-card">
+    <div class="locked-overlay" id="lockedOverlay"></div>
+    <div class="lock-icon" id="lockIcon">🔒</div>
+
+    <span class="lock-badge" id="lockBadge">🔴 Acceso bloqueado</span>
+    <span class="unlocked-badge" id="unlockedBadge">🟢 Acceso desbloqueado</span>
+
+    <h2 id="unlockTitle">Desbloqueá el método completo</h2>
+    <p id="unlockDesc">Abonando $2.500 y enviando tu comprobante, recibirás el código para acceder al tutorial y al programa.</p>
+
+    <button class="unlock-main-btn locked" id="mainBtn" onclick="handleMainBtn()">
+      🔒 Contenido bloqueado — realizá el pago
+    </button>
+
+    <div class="code-section" id="codeSection">
+      <div class="code-input-wrap">
+        <input class="code-input" id="codeInput" type="text" placeholder="CÓDIGO DE DESBLOQUEO" maxlength="20" oninput="this.value=this.value.toUpperCase()" />
+        <button class="verify-btn" onclick="verifyCode()">Verificar</button>
+      </div>
+      <div class="error-msg" id="errorMsg">❌ Código incorrecto. Revisá el mensaje que te enviamos.</div>
+      <div class="success-msg" id="successMsg">✅ ¡Código válido! Redirigiendo al tutorial...</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEÑAS -->
+<section class="reviews">
+  <div class="reviews-title">Lo que dicen nuestros clientes</div>
+  <div class="reviews-sub">+200 personas ya usan internet ilimitado en su línea Personal</div>
+  <div class="reviews-grid">
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="avatar">LM</div>
+        <div class="reviewer-info">
+          <div class="name">Luciana M.</div>
+          <div class="location">Oberá, Misiones</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <div class="review-text">No lo podía creer cuando vi que los datos no se cortaban. Llevo 3 meses usando y funciona perfecto. El tutorial es muy claro.</div>
+      <div class="review-date">hace 2 semanas</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="avatar">RG</div>
+        <div class="reviewer-info">
+          <div class="name">Rodrigo G.</div>
+          <div class="location">Posadas, Misiones</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <div class="review-text">Gonzalo me respondió en minutos, me mandó el código enseguida. Configuré todo solo con el video y quedó andando. Vale cada peso.</div>
+      <div class="review-date">hace 1 mes</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="avatar">VB</div>
+        <div class="reviewer-info">
+          <div class="name">Valentina B.</div>
+          <div class="location">Apóstoles, Misiones</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <div class="review-text">Al principio dudé pero me animé y fue la mejor decisión. Ya le pasé el dato a mis compañeras de trabajo y todas están re contentas.</div>
+      <div class="review-date">hace 3 semanas</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="avatar">FM</div>
+        <div class="reviewer-info">
+          <div class="name">Facundo M.</div>
+          <div class="location">Campo Viera, Misiones</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <div class="review-text">Muy buena atención. Me guió paso a paso y quedó perfecto. El video tutorial explica todo muy bien, cualquiera lo puede hacer.</div>
+      <div class="review-date">hace 5 días</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="avatar">CR</div>
+        <div class="reviewer-info">
+          <div class="name">Camila R.</div>
+          <div class="location">Jardín América, Misiones</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <div class="review-text">Pagué, mandé el comprobante y en 10 minutos ya tenía el código. El método funciona bárbaro, estoy re contenta.</div>
+      <div class="review-date">hace 2 días</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="avatar">DP</div>
+        <div class="reviewer-info">
+          <div class="name">Diego P.</div>
+          <div class="location">Oberá, Misiones</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <div class="review-text">Excelente servicio de Tecno Tech, como siempre. Ya les compré accesorios antes y ahora esto. Recomiendo 100%.</div>
+      <div class="review-date">hace 1 semana</div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <strong>Tecno Tech Store</strong> · Av. Italia 1459, Oberá, Misiones<br>
+  <span style="margin-top:6px;display:block;">⚡ Soporte por WhatsApp · Lunes a Sábados · Respuesta rápida</span>
+</footer>
+
+<!-- WhatsApp FAB -->
+<a class="wa-float" href="https://wa.me/5493755646868?text=Hola%2C%20quiero%20info%20sobre%20el%20internet%20ilimitado%20Personal" target="_blank" title="Consultar por WhatsApp">💬</a>
+
+<script>
+  // ——— CONFIGURACIÓN ———
+  // Cambiá este valor por el código real que vas a enviar a cada cliente
+  // Podés usar un único código fijo o validar contra una lista
+  const VALID_CODES = ['TECNO2025', 'ILIMIT01', 'PERSONAL99']; // <-- EDITÁ ESTO
+  const REDIRECT_URL = 'tutorial.html'; // <-- URL del paso 2 (tutorial)
+  // ————————————————————
+
+  let unlocked = false;
+
+  function handleMainBtn() {
+    if (unlocked) {
+      window.location.href = REDIRECT_URL;
+      return;
+    }
+    const sec = document.getElementById('codeSection');
+    if (sec.classList.contains('visible')) {
+      sec.classList.remove('visible');
+    } else {
+      sec.classList.add('visible');
+      document.getElementById('codeInput').focus();
+    }
+  }
+
+  function verifyCode() {
+    const input = document.getElementById('codeInput').value.trim().toUpperCase();
+    const errEl = document.getElementById('errorMsg');
+    const okEl = document.getElementById('successMsg');
+    const inputEl = document.getElementById('codeInput');
+
+    errEl.style.display = 'none';
+    okEl.style.display = 'none';
+    inputEl.classList.remove('error');
+
+    if (VALID_CODES.includes(input)) {
+      okEl.style.display = 'block';
+      unlocked = true;
+
+      // UI feedback
+      document.getElementById('lockIcon').textContent = '🔓';
+      document.getElementById('lockBadge').style.display = 'none';
+      const ub = document.getElementById('unlockedBadge');
+      ub.style.display = 'inline-flex';
+      document.getElementById('lockedOverlay').style.display = 'none';
+      document.getElementById('unlockTitle').textContent = '¡Acceso desbloqueado!';
+      document.getElementById('unlockDesc').textContent = 'Tu pago fue verificado. Hacé clic para acceder al tutorial completo.';
+
+      const btn = document.getElementById('mainBtn');
+      btn.className = 'unlock-main-btn unlocked';
+      btn.textContent = '✅ Ir al tutorial paso a paso →';
+
+      setTimeout(() => { window.location.href = REDIRECT_URL; }, 2200);
+    } else {
+      inputEl.classList.add('error');
+      errEl.style.display = 'block';
+    }
+  }
+
+  document.getElementById('codeInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') verifyCode();
+  });
+
+  function copyText(elemId, btn) {
+    const el = document.getElementById(elemId);
+    // Extraer solo texto sin el botón
+    const text = el.childNodes[0].textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓';
+      setTimeout(() => btn.textContent = 'Copiar', 1800);
+    });
+  }
+</script>
+</body>
+</html>

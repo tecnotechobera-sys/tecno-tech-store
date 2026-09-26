@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tutorial — Internet Ilimitado Personal · Tecno Tech</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050A14;
+    --surface: #0D1626;
+    --surface2: #131E30;
+    --accent: #00C6FF;
+    --accent2: #0072FF;
+    --green: #00E676;
+    --text: #E8F0FE;
+    --muted: #7B90B8;
+    --border: rgba(0,198,255,0.12);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: env(safe-area-inset-top, 0px);
+    background: rgba(5,10,20,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 100;
+  }
+  .logo { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 800; }
+  .logo span { color: var(--accent); }
+  .step-indicator {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.8rem; color: var(--muted);
+  }
+  .step-dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 800;
+  }
+  .step-dot.done { background: var(--green); color: #003820; }
+  .step-dot.active { background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #fff; }
+  .step-line { width: 28px; height: 2px; background: var(--border); }
+  .step-line.done { background: var(--green); }
+
+  /* HERO */
+  .hero {
+    padding: 56px 24px 40px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 350px;
+    background: radial-gradient(ellipse, rgba(0,230,118,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .success-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.3);
+    color: var(--green); border-radius: 30px; padding: 6px 18px;
+    font-size: 0.82rem; font-weight: 700; margin-bottom: 22px;
+  }
+  h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    font-weight: 800; line-height: 1.15; letter-spacing: -1px;
+    margin-bottom: 14px;
+  }
+  h1 .hl {
+    background: linear-gradient(90deg, var(--green), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+
+  /* VIDEO */
+  .video-section {
+    max-width: 800px; margin: 40px auto 0; padding: 0 24px;
+  }
+  .video-wrap {
+    position: relative; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* Si pegás un embed de YouTube/Drive, reemplazá el placeholder */
+  .video-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    color: var(--muted); text-align: center; padding: 40px;
+  }
+  .play-icon {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; color: #fff;
+    box-shadow: 0 0 40px rgba(0,114,255,0.35);
+  }
+  .video-placeholder strong { font-size: 1.05rem; color: var(--text); }
+  .video-placeholder span { font-size: 0.85rem; }
+  /* Iframe real (descomentá cuando tengas el link) */
+  .video-wrap iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+  }
+
+  /* INSTRUCCIONES */
+  .instructions {
+    max-width: 800px; margin: 48px auto 0; padding: 0 24px 80px;
+  }
+  .inst-title {
+    font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 800;
+    margin-bottom: 28px; letter-spacing: -0.4px;
+  }
+
+  /* DOWNLOAD CARD */
+  .download-card {
+    background: var(--surface); border: 1px solid rgba(0,198,255,0.22);
+    border-radius: 18px; padding: 28px 28px; margin-bottom: 36px;
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  }
+  .app-icon {
+    width: 64px; height: 64px; border-radius: 16px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; flex-shrink: 0;
+  }
+  .app-info { flex: 1; min-width: 180px; }
+  .app-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .app-info p { font-size: 0.83rem; color: var(--muted); }
+  .download-btn {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    color: #fff; border: none; border-radius: 12px; padding: 13px 24px;
+    font-weight: 700; font-size: 0.92rem; cursor: pointer;
+    text-decoration: none; display: inline-block; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .download-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* STEP BY STEP */
+  .config-steps { display: flex; flex-direction: column; gap: 16px; }
+  .cfg-step {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 22px;
+    display: flex; gap: 18px; align-items: flex-start;
+  }
+  .cfg-num {
+    min-width: 34px; height: 34px;
+    border: 2px solid var(--accent);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.88rem; color: var(--accent);
+    flex-shrink: 0;
+  }
+  .cfg-body h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 5px; }
+  .cfg-body p { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+  .cfg-body code {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 2px 8px;
+    font-size: 0.82rem; color: var(--accent); font-family: monospace;
+  }
+
+  /* TIPS */
+  .tips-card {
+    background: rgba(0,114,255,0.07); border: 1px solid rgba(0,198,255,0.18);
+    border-radius: 14px; padding: 22px 24px; margin-top: 32px;
+  }
+  .tips-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--accent); margin-bottom: 14px; }
+  .tips-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .tips-list li { font-size: 0.86rem; color: var(--muted); padding-left: 20px; position: relative; }
+  .tips-list li::before { content: '✓'; color: var(--green); position: absolute; left: 0; font-weight: 700; }
+
+  /* SUPPORT */
+  .support-banner {
+    max-width: 800px; margin: 0 auto 80px; padding: 0 24px;
+  }
+  .support-inner {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 28px 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  }
+  .support-inner h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .support-inner p { font-size: 0.85rem; color: var(--muted); }
+  .wa-btn {
+    background: #25D366; color: #fff; border: none; border-radius: 12px;
+    padding: 13px 24px; font-weight: 700; font-size: 0.9rem;
+    text-decoration: none; display: inline-block; white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .wa-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 28px 24px;
+    text-align: center; color: var(--muted); font-size: 0.8rem;
+  }
+  footer strong { color: var(--accent); }
+
+  .wa-float {
+    position: fixed;
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    right: 24px;
+    background: #25D366; color: #fff;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; text-decoration: none;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+    z-index: 200; transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.08); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 20px 30px; }
+    .video-section, .instructions, .support-banner { padding-left: 16px; padding-right: 16px; }
+    .download-card { flex-direction: column; }
+    .support-inner { flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Tecno<span>Tech</span></div>
+  <div class="step-indicator">
+    <div class="step-dot done">✓</div>
+    <div class="step-line done"></div>
+    <div class="step-dot active">2</div>
+    <div class="step-line"></div>
+    <div class="step-dot" style="background:var(--surface2);color:var(--muted);border:1.5px solid var(--border);">3</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="success-pill">🎉 Pago verificado — acceso habilitado</div>
+  <h1>Tutorial completo<br><span class="hl">paso a paso</span></h1>
+  <p class="hero-sub">Mirá el video y seguí los pasos de configuración. En menos de 5 minutos tenés internet ilimitado activo.</p>
+</section>
+
+<!-- VIDEO -->
+<div class="video-section">
+  <div class="video-wrap">
+
+    <iframe
+      src="https://drive.google.com/file/d/1WGgnNK9R0qNn4r9zqNR__LWgXV_kUZVl/preview"
+      allow="autoplay"
+      allowfullscreen>
+    </iframe>
+
+  </div>
+</div>
+
+<!-- INSTRUCCIONES -->
+<section class="instructions">
+  <div class="inst-title">Seguí estos pasos después del video</div>
+
+  <!-- DESCARGA -->
+  <div class="download-card">
+    <div class="app-icon">📲</div>
+    <div class="app-info">
+      <h3>Paso 1 — Descargá la aplicación</h3>
+      <p>Buscá el programa en Play Store con el nombre exacto que se muestra en el video, o usá el link directo:</p>
+    </div>
+    <!-- Reemplazá el href con el link real de Play Store o APK -->
+    <a class="download-btn" href="https://play.google.com/store/apps/details?id=speicers.diablo.vpn" target="_blank">
+      ↓ Abrir Play Store
+    </a>
+  </div>
+
+  <!-- CONFIG STEPS -->
+  <div class="config-steps">
+    <div class="cfg-step">
+      <div class="cfg-num">1</div>
+      <div class="cfg-body">
+        <h4>Instalá la app</h4>
+        <p>Una vez descargada, abrila. Si aparece un aviso de seguridad, tocá <code>Instalar de todas formas</code>. El programa no contiene virus.</p>
+      </div>
+    </div>
+    <div class="cfg-step">
+      <div class="cfg-num">2</div>
+      <div class="cfg-body">
+        <h4>Configurá los parámetros de red</h4>
+        <p>Dentro de la app vas a ver los campos de configuración. Ingresá los datos exactamente como muestra el video. No cambies ningún valor adicional.</p>
+      </div>
+    </div>
+    <div class="cfg-step">
+      <div class="cfg-num">3</div>
+      <div class="cfg-body">
+        <h4>Conectá y verificá</h4>
+        <p>Tocá el botón de conexión en la app. Cuando el ícono cambia a verde, ya estás conectado. Podés verificar abriendo cualquier página web o YouTube.</p>
+      </div>
+    </div>
+    <div class="cfg-step">
+      <div class="cfg-num">4</div>
+      <div class="cfg-body">
+        <h4>Dejala corriendo en segundo plano</h4>
+        <p>Para que el método funcione todo el tiempo, la app necesita permiso para correr en segundo plano. Seguí los pasos del video para habilitarlo en tu teléfono.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="tips-card">
+    <h4>💡 Consejos para que funcione siempre</h4>
+    <ul class="tips-list">
+      <li>Asegurate de tener la línea Personal con datos móviles encendidos</li>
+      <li>Si se desconecta, cerrá la app completamente y volvé a abrirla</li>
+      <li>No desinstales la app, solo minimizala cuando no la uses</li>
+      <li>Si cambiás de SIM o de teléfono, avisanos por WhatsApp para re-activar</li>
+      <li>Funciona en 3G y 4G — con 4G la velocidad es notablemente mejor</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SOPORTE -->
+<div class="support-banner">
+  <div class="support-inner">
+    <div>
+      <h3>¿Algún problema con la configuración?</h3>
+      <p>Escribinos por WhatsApp y te ayudamos en el momento. Soporte incluido sin costo adicional.</p>
+    </div>
+    <a class="wa-btn" href="https://wa.me/5493755646868?text=Hola%2C%20necesito%20ayuda%20con%20la%20configuraci%C3%B3n%20del%20internet%20ilimitado" target="_blank">
+      💬 Soporte por WhatsApp
+    </a>
+  </div>
+</div>
+
+<footer>
+  <strong>Tecno Tech Store</strong> · Av. Italia 1459, Oberá, Misiones<br>
+  <span style="margin-top:6px;display:block;">Gracias por confiar en nosotros ✦</span>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5493755646868?text=Hola%2C%20necesito%20ayuda%20con%20la%20configuraci%C3%B3n" target="_blank" title="WhatsApp">💬</a>
+
+</body>
+</html>
