@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paso 2 | Instalá MAGISTV-XUPERTV</title>
+<style>
+:root{--bg:#07080f;--card:#10131f;--line:#242a40;--tx:#f2f4fb;--mut:#9aa3bd;--or:#ff5a1f;--bl:#2a5bff;--ok:#8CC63F;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+.w{max-width:760px;margin:0 auto;padding:0 18px}
+header{padding:14px 0;border-bottom:1px solid var(--line)}
+.logo{font-weight:800}.logo b{color:var(--ok)}
+.badge{display:inline-block;background:#1c2a12;color:var(--ok);border:1px solid #3d5a1f;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;margin-top:26px}
+h1{font-size:clamp(26px,6vw,38px);margin:12px 0 8px;line-height:1.1}
+h1 span{background:linear-gradient(90deg,var(--or),var(--bl));-webkit-background-clip:text;background-clip:text;color:transparent}
+p.sub{color:var(--mut);margin:0 0 20px}
+.btn{display:block;text-align:center;border:0;border-radius:14px;padding:17px 22px;font-weight:800;font-size:18px;color:#fff;text-decoration:none;background:linear-gradient(90deg,var(--or),var(--bl))}
+.btn.wa{background:#1faa59;font-size:15px;padding:12px;margin-top:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}
+h2{font-size:22px;margin:30px 0 4px}
+.tabs{display:flex;gap:8px;margin:14px 0}
+.tab{flex:1;padding:11px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--mut);font-weight:700;cursor:pointer;font-size:15px}
+.tab.on{color:#fff;border-color:var(--or);background:#1a1420}
+ol{list-style:none;counter-reset:s;padding:0;margin:0}
+li{counter-increment:s;position:relative;padding:4px 0 18px 52px}
+li::before{content:counter(s);position:absolute;left:0;top:2px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--bl));display:grid;place-items:center;font-weight:800}
+li b{display:block;font-size:17px}li span{color:var(--mut);font-size:15px}
+.ill{margin-top:10px;max-width:340px}.ill svg{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
+.codebox{display:flex;align-items:center;gap:10px;margin:8px 0;background:#0a0c16;border:1px dashed var(--or);border-radius:12px;padding:10px 14px;max-width:340px}
+.codebox b{font-size:28px;letter-spacing:4px;font-family:ui-monospace,Menlo,monospace;display:inline;flex:1}
+.cpy{background:#222a48;color:#fff;border:0;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer}
+.tip{background:#1b1a0f;border:1px solid #4a4318;color:#e8d98a;border-radius:12px;padding:12px 14px;font-size:14px;margin-top:6px}
+.hide{display:none}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0;text-align:center;color:var(--mut);font-size:14px}
+</style>
+</head>
+<body>
+<header><div class="w"><div class="logo">TECNO <b>TECH</b></div></div></header>
+<div class="w">
+<span class="badge">✅ ¡App desbloqueada!</span>
+<h1>Paso 2: instalá <span>MAGISTV-XUPERTV</span></h1>
+<p class="sub">Descargá el archivo e instalalo siguiendo estos pasos. Te lleva menos de 3 minutos.</p>
+
+<a class="btn" id="apk" target="_blank" rel="noopener">⬇️ Descargar APK</a>
+
+<h2>Instalación paso a paso</h2>
+<div class="tabs">
+<button class="tab on" data-t="cel">📱 Celular / Tablet</button>
+<button class="tab" data-t="tv">📺 TV Box / Android TV</button>
+</div>
+
+<div class="card" id="cel">
+<ol>
+<li><b>Descargá el archivo</b><span>Tocá el botón “Descargar APK”. Si el navegador avisa que el archivo puede ser dañino, elegí <i>Descargar de todos modos</i>.</span><div class="ill" data-k="dl" data-t="Tocá “Descargar APK”"></div></li>
+<li><b>Permití la instalación</b><span>Si aparece “instalar apps desconocidas”, tocá <i>Configuración</i> y activá <i>Permitir de esta fuente</i>. Volvé atrás.</span><div class="ill" data-k="toggle" data-t="Activá el permiso y volvé"></div></li>
+<li><b>Tocá “Instalar”</b><span>Abrí el archivo desde “Descargas”. Si Play Protect avisa, elegí <i>Instalar de todos modos</i>.</span><div class="ill" data-k="install" data-t="Tocá “Instalar”"></div></li>
+<li><b>Abrí la app</b><span>Al terminar tocá “Abrir”, aceptá los permisos y listo.</span><div class="ill" data-k="open" data-t="¡Instalada! Tocá “Abrir”"></div></li>
+</ol>
+</div>
+
+<div class="card hide" id="tv">
+<ol>
+<li><b>Instalá “Downloader”</b><span>Buscá la app <i>Downloader</i> en la tienda de tu TV Box o Android TV e instalala.</span><div class="ill" data-k="store" data-t="Tienda de apps de tu TV"></div></li>
+<li><b>Permití apps desconocidas</b><span>Configuración › Seguridad (o Privacidad) › Fuentes desconocidas: activalo para <i>Downloader</i>.</span><div class="ill" data-k="toggle" data-t="Activá “Downloader”"></div></li>
+<li><b>Ingresá el código en Downloader</b><span>Abrí Downloader, escribí este código en la casilla y tocá <i>Ir</i>:</span><div class="codebox"><b id="dcode">4901281</b><button class="cpy" id="cpy">Copiar</button></div><div class="ill" data-k="code" data-t="Escribí el código y tocá “Ir”"></div></li>
+<li><b>Instalá el archivo</b><span>Cuando termine la descarga, tocá <i>Instalar</i>.</span><div class="ill" data-k="install" data-t="Tocá “Instalar”"></div></li>
+<li><b>Abrí la app</b><span>Tocá <i>Abrir</i> y ya podés usarla. Podés borrar el archivo cuando Downloader lo pregunte.</span><div class="ill" data-k="open" data-t="¡Instalada! Tocá “Abrir”"></div></li>
+</ol>
+</div>
+
+<div class="tip">💡 Si algo no te funciona, escribinos y te ayudamos a instalarla.</div>
+<a class="btn wa" id="wa" target="_blank" rel="noopener">💬 Necesito ayuda por WhatsApp</a>
+</div>
+<footer><div class="w">Tecno Tech · Av. Italia 1459, Oberá, Misiones<br>© 2026 Tecno Tech. Todos los derechos reservados.</div></footer>
+<script>
+/* ===== CONFIGURACIÓN ===== */
+const CFG={
+  apk:"https://github.com/mundosolucionesobera/actualizaciones/releases/download/apptv/app.apk",
+  whatsapp:"5493755646868"
+};
+/* ========================= */
+document.getElementById("apk").href=CFG.apk;
+document.getElementById("wa").href="https://wa.me/"+CFG.whatsapp+"?text="+encodeURIComponent("Hola Tecno Tech, necesito ayuda para instalar MAGISTV-XUPERTV");
+
+const T=(x,y,t,s=11,c="#f2f4fb",w=400,a="middle")=>`<text x="${x}" y="${y}" fill="${c}" font-size="${s}" font-weight="${w}" text-anchor="${a}" font-family="system-ui,sans-serif">${t}</text>`;
+const BTN=(x,y,w,t,hl)=>`<rect x="${x}" y="${y}" width="${w}" height="34" rx="9" fill="${hl?"url(#g)":"#222a48"}" ${hl?'stroke="#fff" stroke-width="2"':""}/>`+T(x+w/2,y+22,t,13,"#fff",700);
+const SC={
+ dl:()=>BTN(70,62,180,"⬇ Descargar APK",1)+T(160,125,"app.apk",10,"#9aa3bd"),
+ toggle:()=>`<rect x="30" y="52" width="260" height="46" rx="10" fill="#10131f" stroke="#242a40"/>`+T(46,80,"Permitir de esta fuente",12,"#f2f4fb",400,"start")+`<rect x="236" y="65" width="38" height="20" rx="10" fill="#8CC63F"/><circle cx="264" cy="75" r="8" fill="#fff"/>`,
+ install:()=>`<rect x="40" y="38" width="240" height="80" rx="12" fill="#10131f" stroke="#242a40"/>`+T(160,62,"MAGISTV-XUPERTV",13,"#fff",700)+T(160,78,"¿Querés instalar esta app?",10,"#9aa3bd")+BTN(52,90,100,"Cancelar")+BTN(168,90,100,"Instalar",1),
+ open:()=>`<circle cx="160" cy="58" r="22" fill="#8CC63F"/>`+T(160,66,"✓",24,"#07080f",800)+T(160,100,"App instalada",12,"#9aa3bd")+BTN(100,110,120,"Abrir",1),
+ code:()=>T(160,50,"Ingresá una URL o código",11,"#9aa3bd")+`<rect x="40" y="60" width="240" height="32" rx="8" fill="#0a0c16" stroke="#ff5a1f" stroke-width="2"/>`+T(160,82,"4901281",17,"#fff",700)+BTN(110,104,100,"Ir",1),
+ store:()=>[0,1,2,3].map(i=>`<rect x="${34+i*68}" y="48" width="56" height="56" rx="12" fill="${i==1?"url(#g)":"#10131f"}" stroke="${i==1?"#fff":"#242a40"}" stroke-width="${i==1?2:1}"/>`).join("")+T(34+68+28,84,"⬇",22,"#fff",800)+T(130,122,"Downloader",11,"#f2f4fb",700)
+};
+document.querySelectorAll(".ill").forEach(d=>{
+  d.innerHTML=`<svg viewBox="0 0 320 150" role="img" aria-label="${d.dataset.t}"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff5a1f"/><stop offset="1" stop-color="#2a5bff"/></linearGradient></defs><rect width="320" height="150" fill="#07080f"/>`+T(160,20,d.dataset.t,10,"#ff9a6b",700)+SC[d.dataset.k]()+`</svg>`;
+});
+document.getElementById("cpy").onclick=async e=>{try{await navigator.clipboard.writeText("4901281");e.target.textContent="¡Copiado!"}catch(x){e.target.textContent="Anotalo"}setTimeout(()=>e.target.textContent="Copiar",1800)};
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===b));
+  ["cel","tv"].forEach(id=>document.getElementById(id).classList.toggle("hide",id!==b.dataset.t));
+});
+</script>
+</body>
+</html>

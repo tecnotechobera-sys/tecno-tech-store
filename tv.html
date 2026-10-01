@@ -32,7 +32,7 @@ section{padding:34px 0}h2{font-size:26px;margin:0 0 18px;text-align:center}
 input{width:100%;padding:13px;border-radius:12px;border:1px solid var(--line);background:#0a0c16;color:var(--tx);font-size:16px;text-align:center;letter-spacing:2px;margin:10px 0;text-transform:uppercase}
 .msg{min-height:22px;font-size:14px}.err{color:#ff6b6b}.good{color:var(--ok)}
 .unl{display:none;gap:10px;flex-direction:column;margin-top:12px}
-.vid{display:block;text-decoration:none;color:inherit;text-align:center;padding:34px 18px}
+.vf{position:relative;padding-top:56.25%}.vf iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:12px;background:#000}.vid{display:block;text-decoration:none;color:inherit;text-align:center;padding:34px 18px}
 .stars{color:#ffc233;letter-spacing:2px}.who{margin-top:10px;font-size:14px;color:var(--mut)}
 .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .faq summary{cursor:pointer;font-weight:600}.faq p{color:var(--mut);margin:8px 0 0}
@@ -53,8 +53,8 @@ footer{border-top:1px solid var(--line);padding:22px 0;text-align:center;color:v
 
 <section>
 <h2>Mirá cómo funciona</h2>
-<a class="card vid" id="demo" target="_blank" rel="noopener">
-<div style="font-size:54px">▶️</div><h3>Ver video de funcionamiento</h3><p>Conocé la app antes de activarla</p></a>
+<div class="card" style="padding:10px"><div class="vf"><iframe id="vid" title="Video de funcionamiento" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe></div></div>
+<p style="text-align:center;margin:10px 0 0"><a id="demo" target="_blank" rel="noopener" style="color:var(--mut);font-size:14px">¿No se reproduce? Abrir el video en Drive</a></p>
 </section>
 
 <section>
@@ -119,8 +119,8 @@ const CFG={
   titular:"Gonzalo Matias Lepori",
   banco:"ASTROPAY",
   cbu:"0000177500091983182177",
-  videoDemo:"https://www.youtube.com/watch?v=khxGb1VVQpE&t=20s",   // ← link del video de funcionamiento
-  paso2:"PEGA_AQUI_EL_LINK_DEL_PASO_2", // ← link de la web del Paso 2
+  videoDemo:"https://drive.google.com/file/d/1Mxbcaue0RplAOia2fQ7mQQKC5YImEbhw/view?usp=drive_link",
+  paso2:"https://tecnotechobera-sys.github.io/tecno-tech-store/magistv",
   salt:"tt-magis-v1",
   codigos:[ // huellas (hash) de los códigos: los códigos reales NO se ven acá
    "14dd683a2fbef3b5e8174cae57d9a51512b4b91bebccaf59252f4476ebe8de23",
@@ -189,7 +189,7 @@ const $=id=>document.getElementById(id);
 const wa=txt=>"https://wa.me/"+CFG.whatsapp+"?text="+encodeURIComponent(txt);
 $("alias").textContent=CFG.alias;$("titular").textContent=CFG.titular;$("banco").textContent=CFG.banco;$("cbu").textContent=CFG.cbu;
 document.querySelectorAll(".cp").forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(CFG[b.dataset.c]);b.textContent="¡Copiado!"}catch(e){b.textContent="Mantené presionado"}setTimeout(()=>b.textContent="Copiar",1800)});
-$("demo").href=CFG.videoDemo;$("step2").href=CFG.paso2;
+$("demo").href=CFG.videoDemo;$("vid").src=CFG.videoDemo.replace(/\/view.*$/,"/preview");$("step2").href=CFG.paso2;
 $("hwa").href=$("wf").href=wa("Hola Tecno Tech, quiero info de la app MAGISTV-XUPERTV");
 $("wa2").href=wa("Hola Tecno Tech, ya transferí $10.000 por la app MAGISTV-XUPERTV. Adjunto el comprobante.");
 $("revs").innerHTML=RESENAS.map(r=>`<div class="card"><div class="stars">★★★★★</div><p style="margin:8px 0;color:var(--tx)">“${r.t}”</p><div class="who">— ${r.n}</div></div>`).join("");
