@@ -487,7 +487,6 @@
   const GITHUB_REPO  = 'tecno-tech-store';
   const GITHUB_FILE  = 'codigos-internet.json';
   const GITHUB_BRANCH = 'main';
-  const GH_WRITE_TOKEN = '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';
   const REDIRECT_URL = 'tutorial.html';
   // ═══════════════════════════════════════
 
@@ -495,52 +494,21 @@
 
   async function fetchCodes() {
     try {
+      // Leer sin token — archivo público, timestamp para evitar caché del navegador
       const res = await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
-        {
-          headers: {
-            Authorization: `token ${GH_WRITE_TOKEN}`,
-            Accept: 'application/vnd.github.v3+json'
-          }
-        }
+        `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_FILE}`,
+        { cache: 'no-store' }
       );
       if (!res.ok) return [];
-      const json = await res.json();
-      const decoded = decodeURIComponent(escape(atob(json.content.replace(/\n/g, ''))));
-      return JSON.parse(decoded);
+      return await res.json();
     } catch { return []; }
   }
 
   async function markUsed(codes, match) {
-    try {
-      match.status = 'used';
-      match.usedAt = Date.now();
-      // Obtener SHA actual del archivo
-      const metaRes = await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
-        { headers: { Authorization: `token ${GH_WRITE_TOKEN}`, Accept: 'application/vnd.github.v3+json' } }
-      );
-      if (!metaRes.ok) return;
-      const meta = await metaRes.json();
-      const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(codes, null, 2))));
-      await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
-        {
-          method: 'PUT',
-          headers: {
-            Authorization: `token ${GH_WRITE_TOKEN}`,
-            Accept: 'application/vnd.github.v3+json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: 'Cliente: código usado',
-            content: newContent,
-            sha: meta.sha,
-            branch: GITHUB_BRANCH
-          })
-        }
-      );
-    } catch(e) { console.warn('No se pudo marcar como usado:', e); }
+    // El marcado como usado lo hace el admin manualmente
+    // El cliente no tiene token de escritura
+    match.status = 'used';
+    match.usedAt = Date.now();
   }
 
   function handleMainBtn() {
