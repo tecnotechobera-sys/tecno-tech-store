@@ -494,10 +494,11 @@
 
   async function fetchCodes() {
     try {
-      // Leer sin token — archivo público, timestamp para evitar caché del navegador
+      // Usar API de GitHub sin token (funciona en repos públicos)
+      // Agregar timestamp al query para evitar caché de GitHub
       const res = await fetch(
-        `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_FILE}`,
-        { cache: 'no-store' }
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}?ref=${GITHUB_BRANCH}&_=${Date.now()}`,
+        { headers: { Accept: 'application/vnd.github.v3.raw' } }
       );
       if (!res.ok) return [];
       return await res.json();
