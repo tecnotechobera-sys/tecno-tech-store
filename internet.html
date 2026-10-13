@@ -35,14 +35,14 @@
 
   /* NAV */
   nav {
-    position: sticky; top: 0;
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
     background: rgba(5,10,20,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     padding: 14px 24px;
     display: flex; align-items: center; justify-content: space-between;
     z-index: 100;
-    top: env(safe-area-inset-top, 0px);
   }
   .logo { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 800; letter-spacing: -0.5px; }
   .logo span { color: var(--accent); }
@@ -158,17 +158,13 @@
     border-radius: 20px; padding: 36px 32px; text-align: center;
     position: relative; overflow: hidden;
   }
-  .lock-icon {
-    font-size: 3rem; margin-bottom: 16px;
-    filter: grayscale(0.2);
-  }
+  .lock-icon { font-size: 3rem; margin-bottom: 16px; filter: grayscale(0.2); }
   .unlock-card h2 {
     font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 800;
     margin-bottom: 10px; letter-spacing: -0.3px;
   }
   .unlock-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
 
-  /* Locked state */
   .unlock-main-btn {
     width: 100%; padding: 18px;
     border-radius: 14px; border: none;
@@ -191,12 +187,9 @@
     box-shadow: 0 8px 32px rgba(0,230,118,0.3);
   }
 
-  /* Code input */
   .code-section { margin-top: 20px; display: none; }
   .code-section.visible { display: block; }
-  .code-input-wrap {
-    display: flex; gap: 10px;
-  }
+  .code-input-wrap { display: flex; gap: 10px; }
   .code-input {
     flex: 1; background: var(--surface2); border: 1.5px solid var(--border);
     border-radius: 10px; padding: 12px 16px; color: var(--text);
@@ -237,22 +230,14 @@
   }
 
   /* REVIEWS */
-  .reviews {
-    max-width: 900px; margin: 0 auto 80px; padding: 0 24px;
-  }
+  .reviews { max-width: 900px; margin: 0 auto 80px; padding: 0 24px; }
   .reviews-title {
     text-align: center; font-family: 'Sora', sans-serif;
     font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px;
   }
   .reviews-sub { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 36px; }
-  .reviews-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 18px;
-  }
-  .review-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; padding: 22px 22px;
-  }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .review-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px 22px; }
   .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
   .avatar {
     width: 42px; height: 42px; border-radius: 50%;
@@ -275,14 +260,15 @@
 
   /* WHATSAPP FLOAT */
   .wa-float {
-    position: fixed; bottom: 28px; right: 24px;
+    position: fixed;
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    right: 24px;
     background: #25D366; color: #fff;
     width: 56px; height: 56px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.6rem; text-decoration: none;
     box-shadow: 0 6px 24px rgba(37,211,102,0.4);
     z-index: 200; transition: transform 0.2s;
-    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
   }
   .wa-float:hover { transform: scale(1.08); }
 
@@ -293,7 +279,6 @@
     .unlock-card { padding: 28px 20px; }
     .tf-val { font-size: 0.82rem; }
   }
-
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
   }
@@ -335,15 +320,15 @@
           </div>
           <div class="tf-row">
             <span class="tf-label">CBU</span>
-            <span class="tf-val" id="cbu-val"><!-- 0000177500091983182177 --><em style="color:var(--muted);font-style:normal;font-size:0.8rem;">0000177500091983182177</em><button class="copy-btn" onclick="copyText('cbu-val', this)">Copiar</button></span>
+            <span class="tf-val" id="cbu-val">0000177500091983182177<button class="copy-btn" onclick="copyText('cbu-val', this)">Copiar</button></span>
           </div>
           <div class="tf-row">
             <span class="tf-label">Alias</span>
-            <span class="tf-val" id="alias-val"><!-- MUNDO95 -->MUNDO95<button class="copy-btn" onclick="copyText('alias-val', this)">Copiar</button></span>
+            <span class="tf-val" id="alias-val">MUNDO95<button class="copy-btn" onclick="copyText('alias-val', this)">Copiar</button></span>
           </div>
           <div class="tf-row">
             <span class="tf-label">Banco</span>
-            <span class="tf-val"><!-- REEMPLAZÁ CON TU BANCO -->ASTROPAY</span>
+            <span class="tf-val">ASTROPAY</span>
           </div>
           <div class="tf-row">
             <span class="tf-label">Monto exacto</span>
@@ -492,24 +477,29 @@
   <span style="margin-top:6px;display:block;">⚡ Soporte por WhatsApp · Lunes a Sábados · Respuesta rápida</span>
 </footer>
 
-<!-- WhatsApp FAB -->
 <a class="wa-float" href="https://wa.me/5493755646868?text=Hola%2C%20quiero%20info%20sobre%20el%20internet%20ilimitado%20Personal" target="_blank" title="Consultar por WhatsApp">💬</a>
 
 <script>
-  // ——— CONFIGURACIÓN ———
-  // Cambiá este valor por el código real que vas a enviar a cada cliente
-  // Podés usar un único código fijo o validar contra una lista
-  const VALID_CODES = ['TECNO2025', 'ILIMIT01', 'PERSONAL99']; // <-- EDITÁ ESTO
-  const REDIRECT_URL = 'tutorial.html'; // <-- URL del paso 2 (tutorial)
-  // ————————————————————
+  // ═══════════════════════════════════════
+  //  CONFIGURACIÓN
+  // ═══════════════════════════════════════
+  const STORAGE_KEY = 'tt_codes_v1'; // debe coincidir con admin-internet.html
+  const REDIRECT_URL = 'tutorial.html';
+  // ═══════════════════════════════════════
 
   let unlocked = false;
 
+  function loadCodes() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveCodes(codes) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(codes));
+  }
+
   function handleMainBtn() {
-    if (unlocked) {
-      window.location.href = REDIRECT_URL;
-      return;
-    }
+    if (unlocked) { window.location.href = REDIRECT_URL; return; }
     const sec = document.getElementById('codeSection');
     if (sec.classList.contains('visible')) {
       sec.classList.remove('visible');
@@ -529,11 +519,19 @@
     okEl.style.display = 'none';
     inputEl.classList.remove('error');
 
-    if (VALID_CODES.includes(input)) {
+    const codes = loadCodes();
+    const match = codes.find(c => c.code === input && c.status === 'active');
+
+    if (match) {
+      if (match.type === 'single') {
+        match.status = 'used';
+        match.usedAt = Date.now();
+        saveCodes(codes);
+      }
+
       okEl.style.display = 'block';
       unlocked = true;
 
-      // UI feedback
       document.getElementById('lockIcon').textContent = '🔓';
       document.getElementById('lockBadge').style.display = 'none';
       const ub = document.getElementById('unlockedBadge');
@@ -559,7 +557,6 @@
 
   function copyText(elemId, btn) {
     const el = document.getElementById(elemId);
-    // Extraer solo texto sin el botón
     const text = el.childNodes[0].textContent.trim();
     navigator.clipboard.writeText(text).then(() => {
       btn.textContent = '✓';
