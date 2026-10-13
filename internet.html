@@ -487,6 +487,7 @@
   const GITHUB_REPO  = 'tecno-tech-store';
   const GITHUB_FILE  = 'codigos-internet.json';
   const GITHUB_BRANCH = 'main';
+  const GH_WRITE_TOKEN = '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';
   const REDIRECT_URL = 'tutorial.html';
   // ═══════════════════════════════════════
 
@@ -503,16 +504,34 @@
 
   async function markUsed(codes, match) {
     try {
-      // Obtener SHA actual
+      match.status = 'used';
+      match.usedAt = Date.now();
+      // Obtener SHA actual del archivo
       const metaRes = await fetch(
         `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
-        { headers: { Accept: 'application/vnd.github.v3+json' } }
+        { headers: { Authorization: `token ${GH_WRITE_TOKEN}`, Accept: 'application/vnd.github.v3+json' } }
       );
       if (!metaRes.ok) return;
       const meta = await metaRes.json();
-      // No tenemos token en el cliente, solo marcamos localmente
-      // El admin verá el uso en el próximo ingreso
-    } catch {}
+      const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(codes, null, 2))));
+      await fetch(
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${GH_WRITE_TOKEN}`,
+            Accept: 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Cliente: código usado',
+            content: newContent,
+            sha: meta.sha,
+            branch: GITHUB_BRANCH
+          })
+        }
+      );
+    } catch(e) { console.warn('No se pudo marcar como usado:', e); }
   }
 
   function handleMainBtn() {
@@ -546,6 +565,9 @@
     verBtn.disabled = false;
 
     if (match) {
+      if (match.type === 'single') {
+        await markUsed(codes, match);
+      }
       okEl.style.display = 'block';
       unlocked = true;
 

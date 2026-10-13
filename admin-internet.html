@@ -276,6 +276,8 @@ async function doLogin() {
 
   ghToken = t;
   localStorage.setItem('tt_gh_token', t);
+  localStorage.setItem('tt_admin_user', u);
+  localStorage.setItem('tt_admin_pass', p);
 
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('panel').style.display = 'block';
@@ -284,18 +286,30 @@ async function doLogin() {
 }
 
 function doLogout() {
+  localStorage.removeItem('tt_gh_token');
+  localStorage.removeItem('tt_admin_user');
+  localStorage.removeItem('tt_admin_pass');
   document.getElementById('panel').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
+  document.getElementById('loginToken').value = '';
   ghToken = '';
   codesData = [];
 }
 
-// Autocompletar token guardado
+// Restaurar sesión al cargar
 window.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('tt_gh_token');
-  if (saved) document.getElementById('loginToken').value = saved;
+  const savedToken = localStorage.getItem('tt_gh_token');
+  const savedUser  = localStorage.getItem('tt_admin_user');
+  const savedPass  = localStorage.getItem('tt_admin_pass');
+  if (savedToken) document.getElementById('loginToken').value = savedToken;
+  // Si hay sesión guardada, loguearse automáticamente
+  if (savedToken && savedUser && savedPass) {
+    document.getElementById('loginUser').value = savedUser;
+    document.getElementById('loginPass').value = savedPass;
+    doLogin();
+  }
 });
 
 // ── GITHUB API ────────────────────────────
