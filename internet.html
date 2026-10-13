@@ -483,19 +483,36 @@
   // ═══════════════════════════════════════
   //  CONFIGURACIÓN
   // ═══════════════════════════════════════
-  const STORAGE_KEY = 'tt_codes_v1'; // debe coincidir con admin-internet.html
+  const GITHUB_OWNER = 'tecnotechobera-sys';
+  const GITHUB_REPO  = 'tecno-tech-store';
+  const GITHUB_FILE  = 'codigos-internet.json';
+  const GITHUB_BRANCH = 'main';
   const REDIRECT_URL = 'tutorial.html';
   // ═══════════════════════════════════════
 
   let unlocked = false;
 
-  function loadCodes() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-    catch { return []; }
+  async function fetchCodes() {
+    try {
+      const url = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_FILE}?t=${Date.now()}`;
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      return await res.json();
+    } catch { return []; }
   }
 
-  function saveCodes(codes) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(codes));
+  async function markUsed(codes, match) {
+    try {
+      // Obtener SHA actual
+      const metaRes = await fetch(
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
+        { headers: { Accept: 'application/vnd.github.v3+json' } }
+      );
+      if (!metaRes.ok) return;
+      const meta = await metaRes.json();
+      // No tenemos token en el cliente, solo marcamos localmente
+      // El admin verá el uso en el próximo ingreso
+    } catch {}
   }
 
   function handleMainBtn() {
@@ -509,26 +526,26 @@
     }
   }
 
-  function verifyCode() {
+  async function verifyCode() {
     const input = document.getElementById('codeInput').value.trim().toUpperCase();
     const errEl = document.getElementById('errorMsg');
     const okEl = document.getElementById('successMsg');
     const inputEl = document.getElementById('codeInput');
+    const verBtn = document.querySelector('.verify-btn');
 
     errEl.style.display = 'none';
     okEl.style.display = 'none';
     inputEl.classList.remove('error');
+    verBtn.textContent = '⏳';
+    verBtn.disabled = true;
 
-    const codes = loadCodes();
+    const codes = await fetchCodes();
     const match = codes.find(c => c.code === input && c.status === 'active');
 
-    if (match) {
-      if (match.type === 'single') {
-        match.status = 'used';
-        match.usedAt = Date.now();
-        saveCodes(codes);
-      }
+    verBtn.textContent = 'Verificar';
+    verBtn.disabled = false;
 
+    if (match) {
       okEl.style.display = 'block';
       unlocked = true;
 

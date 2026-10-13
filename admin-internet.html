@@ -3,198 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Admin — Tecno Tech</title>
+<title>Admin Internet — Tecno Tech</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #050A14;
-    --surface: #0D1626;
-    --surface2: #131E30;
-    --accent: #00C6FF;
-    --accent2: #0072FF;
-    --green: #00E676;
-    --red: #FF3D57;
-    --yellow: #FFD600;
-    --text: #E8F0FE;
-    --muted: #7B90B8;
-    --border: rgba(0,198,255,0.12);
+    --bg: #050A14; --surface: #0D1626; --surface2: #131E30;
+    --accent: #00C6FF; --accent2: #0072FF; --green: #00E676;
+    --red: #FF3D57; --yellow: #FFD600; --text: #E8F0FE;
+    --muted: #7B90B8; --border: rgba(0,198,255,0.12);
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
-  body {
-    background: var(--bg); color: var(--text);
-    font-family: 'Inter', sans-serif; font-size: 15px;
-    line-height: 1.5; min-height: 100vh;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.5; min-height: 100vh; }
 
   /* LOGIN */
-  #loginScreen {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-  }
-  .login-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 40px 36px; width: 100%; max-width: 380px;
-    text-align: center;
-  }
+  #loginScreen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px 36px; width: 100%; max-width: 400px; text-align: center; }
   .login-card .icon { font-size: 2.8rem; margin-bottom: 16px; }
-  .login-card h2 {
-    font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800;
-    margin-bottom: 6px; letter-spacing: -0.4px;
-  }
+  .login-card h2 { font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
   .login-card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
   .field { margin-bottom: 14px; text-align: left; }
-  .field label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .field input {
-    width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
-    border-radius: 10px; padding: 12px 16px; color: var(--text);
-    font-size: 0.95rem; outline: none; transition: border-color 0.2s;
-    font-family: 'Inter', sans-serif;
-  }
+  .field label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .field input { width: 100%; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 16px; color: var(--text); font-size: 0.95rem; outline: none; transition: border-color 0.2s; font-family: 'Inter', sans-serif; }
   .field input:focus { border-color: var(--accent); }
   .field input.err { border-color: var(--red); }
-  .login-btn {
-    width: 100%; padding: 14px;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    color: #fff; border: none; border-radius: 12px;
-    font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 800;
-    cursor: pointer; transition: opacity 0.2s; margin-top: 6px;
-  }
+  .field .hint { font-size: 0.75rem; color: var(--muted); margin-top: 5px; }
+  .login-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #fff; border: none; border-radius: 12px; font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 800; cursor: pointer; transition: opacity 0.2s; margin-top: 6px; }
   .login-btn:hover { opacity: 0.88; }
   .login-err { color: var(--red); font-size: 0.82rem; margin-top: 10px; display: none; }
 
   /* PANEL */
   #panel { display: none; }
-
-  nav {
-    position: sticky; top: env(safe-area-inset-top, 0px);
-    background: rgba(5,10,20,0.95); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    z-index: 100;
-  }
+  nav { position: sticky; top: env(safe-area-inset-top, 0px); background: rgba(5,10,20,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
   .logo { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 800; }
   .logo span { color: var(--accent); }
-  .admin-badge {
-    background: rgba(255,214,0,0.1); border: 1px solid rgba(255,214,0,0.3);
-    color: var(--yellow); font-size: 0.72rem; font-weight: 700;
-    padding: 4px 12px; border-radius: 20px;
-  }
-  .logout-btn {
-    background: rgba(255,61,87,0.1); border: 1px solid rgba(255,61,87,0.25);
-    color: #ff6b80; font-size: 0.78rem; font-weight: 700;
-    padding: 5px 14px; border-radius: 8px; cursor: pointer; transition: background 0.2s;
-  }
+  .admin-badge { background: rgba(255,214,0,0.1); border: 1px solid rgba(255,214,0,0.3); color: var(--yellow); font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+  .logout-btn { background: rgba(255,61,87,0.1); border: 1px solid rgba(255,61,87,0.25); color: #ff6b80; font-size: 0.78rem; font-weight: 700; padding: 5px 14px; border-radius: 8px; cursor: pointer; }
   .logout-btn:hover { background: rgba(255,61,87,0.2); }
 
-  .main { max-width: 860px; margin: 0 auto; padding: 36px 24px 80px; }
+  .main { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* TOKEN CONFIG */
+  .token-card { background: rgba(255,214,0,0.05); border: 1px solid rgba(255,214,0,0.2); border-radius: 14px; padding: 20px 22px; margin-bottom: 28px; }
+  .token-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--yellow); margin-bottom: 10px; }
+  .token-row { display: flex; gap: 10px; align-items: center; }
+  .token-input { flex: 1; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; color: var(--text); font-size: 0.85rem; outline: none; font-family: monospace; transition: border-color 0.2s; }
+  .token-input:focus { border-color: var(--yellow); }
+  .token-save-btn { background: rgba(255,214,0,0.15); border: 1px solid rgba(255,214,0,0.3); color: var(--yellow); border-radius: 10px; padding: 10px 18px; font-weight: 700; font-size: 0.82rem; cursor: pointer; white-space: nowrap; }
+  .token-save-btn:hover { background: rgba(255,214,0,0.25); }
+  .token-status { font-size: 0.78rem; margin-top: 8px; }
+  .token-status.ok { color: var(--green); }
+  .token-status.err { color: var(--red); }
 
   /* STATS */
-  .stats {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 14px; margin-bottom: 36px;
-  }
-  .stat-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 18px 20px;
-  }
-  .stat-card .stat-val {
-    font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800;
-    line-height: 1;
-  }
-  .stat-card .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-bottom: 32px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; }
+  .stat-val { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
   .stat-card.total .stat-val { color: var(--accent); }
   .stat-card.active .stat-val { color: var(--green); }
   .stat-card.inactive .stat-val { color: var(--red); }
   .stat-card.used .stat-val { color: var(--yellow); }
 
-  /* CREAR CÓDIGO */
-  .section-title {
-    font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 800;
-    margin-bottom: 16px; letter-spacing: -0.3px;
-  }
-  .create-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; padding: 24px 24px; margin-bottom: 32px;
-  }
+  /* CREAR */
+  .section-title { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.3px; }
+  .create-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 32px; }
   .create-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
-  .create-field { flex: 1; min-width: 180px; }
+  .create-field { flex: 1; min-width: 160px; }
   .create-field label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .create-field input, .create-field select {
-    width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
-    border-radius: 10px; padding: 11px 14px; color: var(--text);
-    font-size: 0.9rem; outline: none; transition: border-color 0.2s;
-    font-family: 'Inter', sans-serif;
-  }
+  .create-field input, .create-field select { width: 100%; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 14px; color: var(--text); font-size: 0.9rem; outline: none; transition: border-color 0.2s; font-family: 'Inter', sans-serif; }
   .create-field input:focus, .create-field select:focus { border-color: var(--accent); }
   .create-field select option { background: var(--surface2); }
-  .add-btn {
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    color: #fff; border: none; border-radius: 10px; padding: 11px 22px;
-    font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: opacity 0.2s;
-    white-space: nowrap; align-self: flex-end;
-  }
+  .add-btn { background: linear-gradient(135deg, var(--accent2), var(--accent)); color: #fff; border: none; border-radius: 10px; padding: 11px 22px; font-weight: 700; font-size: 0.88rem; cursor: pointer; white-space: nowrap; align-self: flex-end; transition: opacity 0.2s; }
   .add-btn:hover { opacity: 0.88; }
-  .gen-btn {
-    background: rgba(0,198,255,0.1); border: 1px solid var(--border);
-    color: var(--accent); border-radius: 10px; padding: 11px 16px;
-    font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: background 0.2s;
-    white-space: nowrap; align-self: flex-end;
-  }
+  .add-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .gen-btn { background: rgba(0,198,255,0.1); border: 1px solid var(--border); color: var(--accent); border-radius: 10px; padding: 11px 16px; font-weight: 700; font-size: 0.82rem; cursor: pointer; white-space: nowrap; align-self: flex-end; }
   .gen-btn:hover { background: rgba(0,198,255,0.2); }
   .create-note { font-size: 0.78rem; color: var(--muted); margin-top: 12px; }
 
   /* FILTROS */
-  .filter-row {
-    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
-  }
-  .filter-btn {
-    background: var(--surface); border: 1px solid var(--border);
-    color: var(--muted); border-radius: 8px; padding: 6px 16px;
-    font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-  }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+  .filter-btn { background: var(--surface); border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 6px 16px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
   .filter-btn.active { background: rgba(0,198,255,0.12); border-color: var(--accent); color: var(--accent); }
-  .search-input {
-    flex: 1; min-width: 160px; background: var(--surface); border: 1px solid var(--border);
-    border-radius: 8px; padding: 7px 14px; color: var(--text); font-size: 0.85rem;
-    outline: none; font-family: 'Inter', sans-serif; transition: border-color 0.2s;
-  }
+  .search-input { flex: 1; min-width: 160px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 14px; color: var(--text); font-size: 0.85rem; outline: none; font-family: 'Inter', sans-serif; transition: border-color 0.2s; }
   .search-input:focus { border-color: var(--accent); }
 
   /* TABLA */
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; overflow-x: auto; }
   .codes-table { width: 100%; border-collapse: collapse; }
-  .codes-table th {
-    text-align: left; font-size: 0.72rem; font-weight: 700; color: var(--muted);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    padding: 10px 14px; border-bottom: 1px solid var(--border);
-  }
-  .codes-table td {
-    padding: 13px 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
-    font-size: 0.88rem; vertical-align: middle;
-  }
+  .codes-table th { text-align: left; font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  .codes-table td { padding: 13px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.88rem; vertical-align: middle; }
   .codes-table tr:hover td { background: rgba(255,255,255,0.02); }
-  .code-text {
-    font-family: monospace; font-weight: 700; font-size: 0.95rem;
-    letter-spacing: 1px; color: var(--text);
-  }
-  .badge {
-    display: inline-block; border-radius: 6px; padding: 3px 10px;
-    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px;
-  }
+  .code-text { font-family: monospace; font-weight: 700; font-size: 0.95rem; letter-spacing: 1px; }
+  .badge { display: inline-block; border-radius: 6px; padding: 3px 10px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
   .badge.active { background: rgba(0,230,118,0.12); color: var(--green); }
   .badge.inactive { background: rgba(255,61,87,0.1); color: #ff6b80; }
   .badge.used { background: rgba(255,214,0,0.1); color: var(--yellow); }
   .badge.single { background: rgba(0,114,255,0.12); color: var(--accent); }
   .badge.multi { background: rgba(150,100,255,0.12); color: #b48aff; }
-
-  .action-btn {
-    border: none; border-radius: 7px; padding: 5px 12px;
-    font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
-    margin-left: 4px;
-  }
+  .action-btn { border: none; border-radius: 7px; padding: 5px 12px; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-left: 4px; }
   .btn-toggle-on { background: rgba(0,230,118,0.12); color: var(--green); }
   .btn-toggle-on:hover { background: rgba(0,230,118,0.22); }
   .btn-toggle-off { background: rgba(255,61,87,0.1); color: #ff6b80; }
@@ -203,36 +112,25 @@
   .btn-delete:hover { background: rgba(255,61,87,0.15); color: #ff6b80; }
   .btn-copy { background: rgba(0,198,255,0.08); color: var(--accent); }
   .btn-copy:hover { background: rgba(0,198,255,0.18); }
-
-  .empty-state {
-    text-align: center; padding: 48px 24px; color: var(--muted);
-  }
+  .empty-state { text-align: center; padding: 48px 24px; color: var(--muted); }
   .empty-state .ei { font-size: 2.5rem; margin-bottom: 12px; }
 
-  .table-wrap {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; overflow: hidden; overflow-x: auto;
-  }
+  /* SAVING INDICATOR */
+  #savingBar { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; background: rgba(0,114,255,0.9); color: #fff; text-align: center; font-size: 0.82rem; font-weight: 700; padding: 8px; z-index: 999; display: none; }
 
   /* TOAST */
-  #toast {
-    position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--surface2); border: 1px solid var(--border);
-    color: var(--text); padding: 12px 24px; border-radius: 12px;
-    font-size: 0.88rem; font-weight: 600; z-index: 999;
-    transition: transform 0.3s; pointer-events: none; white-space: nowrap;
-  }
+  #toast { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%) translateY(80px); background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 12px 24px; border-radius: 12px; font-size: 0.88rem; font-weight: 600; z-index: 999; transition: transform 0.3s; pointer-events: none; white-space: nowrap; }
   #toast.show { transform: translateX(-50%) translateY(0); }
 
   @media (max-width: 600px) {
-    .main { padding: 24px 16px 60px; }
-    .codes-table th:nth-child(4),
-    .codes-table td:nth-child(4) { display: none; }
+    .main { padding: 20px 16px 60px; }
+    .codes-table th:nth-child(4), .codes-table td:nth-child(4) { display: none; }
   }
 </style>
 </head>
 <body>
+
+<div id="savingBar">⏳ Guardando en GitHub...</div>
 
 <!-- LOGIN -->
 <div id="loginScreen">
@@ -248,6 +146,11 @@
       <label>Contraseña</label>
       <input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
     </div>
+    <div class="field">
+      <label>Token de GitHub</label>
+      <input type="password" id="loginToken" placeholder="ghp_..." onkeydown="if(event.key==='Enter')doLogin()" />
+      <div class="hint">Se guarda solo en este dispositivo. Necesario para guardar cambios.</div>
+    </div>
     <button class="login-btn" onclick="doLogin()">Ingresar al panel</button>
     <div class="login-err" id="loginErr">Usuario o contraseña incorrectos</div>
   </div>
@@ -260,7 +163,10 @@
       <div class="logo">Tecno<span>Tech</span></div>
       <span class="admin-badge">⚙ Admin</span>
     </div>
-    <button class="logout-btn" onclick="doLogout()">Cerrar sesión</button>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span id="syncStatus" style="font-size:0.75rem;color:var(--green);"></span>
+      <button class="logout-btn" onclick="doLogout()">Cerrar sesión</button>
+    </div>
   </nav>
 
   <div class="main">
@@ -283,12 +189,12 @@
             <option value="multi">Uso múltiple</option>
           </select>
         </div>
-        <div class="create-field" style="max-width:180px;">
-          <label>Nota (cliente)</label>
+        <div class="create-field" style="max-width:200px;">
+          <label>Cliente / Nota</label>
           <input type="text" id="newNote" placeholder="Ej: Juan García" />
         </div>
         <button class="gen-btn" onclick="generateCode()">🎲 Generar</button>
-        <button class="add-btn" onclick="addCode()">+ Agregar</button>
+        <button class="add-btn" id="addBtn" onclick="addCode()">+ Agregar</button>
       </div>
       <div class="create-note">
         💡 <strong>Un solo uso:</strong> se desactiva automáticamente cuando el cliente lo usa. &nbsp;|&nbsp;
@@ -299,11 +205,11 @@
     <!-- LISTA -->
     <div class="section-title">Códigos existentes</div>
     <div class="filter-row">
-      <button class="filter-btn active" onclick="setFilter('all', this)">Todos</button>
-      <button class="filter-btn" onclick="setFilter('active', this)">Activos</button>
-      <button class="filter-btn" onclick="setFilter('inactive', this)">Desactivados</button>
-      <button class="filter-btn" onclick="setFilter('used', this)">Usados</button>
-      <input class="search-input" type="text" placeholder="🔍 Buscar código o cliente..." oninput="renderTable()" id="searchInput" />
+      <button class="filter-btn active" onclick="setFilter('all',this)">Todos</button>
+      <button class="filter-btn" onclick="setFilter('active',this)">Activos</button>
+      <button class="filter-btn" onclick="setFilter('inactive',this)">Desactivados</button>
+      <button class="filter-btn" onclick="setFilter('used',this)">Usados</button>
+      <input class="search-input" type="text" id="searchInput" placeholder="🔍 Buscar código o cliente..." oninput="renderTable()" />
     </div>
 
     <div class="table-wrap">
@@ -335,42 +241,136 @@
 // ═══════════════════════════════════════════
 //  CONFIGURACIÓN — CAMBIÁ ESTOS VALORES
 // ═══════════════════════════════════════════
-const ADMIN_USER = 'tecnotech';       // <-- tu usuario
-const ADMIN_PASS = 'TecnoTech2025!';  // <-- tu contraseña
-const STORAGE_KEY = 'tt_codes_v1';    // clave en localStorage
+const ADMIN_USER = 'tecnotech';
+const ADMIN_PASS = 'TecnoTech2025!';
+const GITHUB_OWNER = 'tecnotechobera-sys';
+const GITHUB_REPO  = 'tecno-tech-store';
+const GITHUB_FILE  = 'codigos-internet.json';
+const GITHUB_BRANCH = 'main';
 // ═══════════════════════════════════════════
 
+let ghToken = '';
+let codesData = [];
 let currentFilter = 'all';
+let fileSha = null; // SHA del archivo en GitHub, necesario para actualizarlo
 
 // ── AUTH ──────────────────────────────────
-function doLogin() {
+async function doLogin() {
   const u = document.getElementById('loginUser').value.trim();
   const p = document.getElementById('loginPass').value;
+  const t = document.getElementById('loginToken').value.trim();
   const err = document.getElementById('loginErr');
-  if (u === ADMIN_USER && p === ADMIN_PASS) {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('panel').style.display = 'block';
-    renderStats(); renderTable();
-  } else {
+
+  if (u !== ADMIN_USER || p !== ADMIN_PASS) {
+    err.textContent = 'Usuario o contraseña incorrectos';
     err.style.display = 'block';
-    document.getElementById('loginPass').classList.add('err');
-    setTimeout(() => { err.style.display='none'; document.getElementById('loginPass').classList.remove('err'); }, 2500);
+    setTimeout(() => err.style.display='none', 2500);
+    return;
   }
+  if (!t) {
+    err.textContent = 'Ingresá el token de GitHub';
+    err.style.display = 'block';
+    setTimeout(() => err.style.display='none', 2500);
+    return;
+  }
+
+  ghToken = t;
+  localStorage.setItem('tt_gh_token', t);
+
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+
+  await loadFromGitHub();
 }
+
 function doLogout() {
   document.getElementById('panel').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
+  ghToken = '';
+  codesData = [];
 }
 
-// ── STORAGE ───────────────────────────────
-function loadCodes() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-  catch { return []; }
+// Autocompletar token guardado
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('tt_gh_token');
+  if (saved) document.getElementById('loginToken').value = saved;
+});
+
+// ── GITHUB API ────────────────────────────
+async function loadFromGitHub() {
+  toast('⏳ Cargando códigos...');
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}?ref=${GITHUB_BRANCH}`,
+      { headers: { Authorization: `token ${ghToken}`, Accept: 'application/vnd.github.v3+json' } }
+    );
+
+    if (res.status === 404) {
+      // Archivo no existe todavía, empezamos vacío
+      codesData = [];
+      fileSha = null;
+      renderStats(); renderTable();
+      toast('✅ Panel listo — sin códigos aún');
+      document.getElementById('syncStatus').textContent = '● GitHub conectado';
+      return;
+    }
+
+    if (!res.ok) throw new Error('Error al conectar con GitHub');
+
+    const json = await res.json();
+    fileSha = json.sha;
+    const content = atob(json.content.replace(/\n/g, ''));
+    codesData = JSON.parse(content);
+    renderStats(); renderTable();
+    toast('✅ Códigos cargados desde GitHub');
+    document.getElementById('syncStatus').textContent = '● GitHub conectado';
+  } catch(e) {
+    toast('❌ Error: ' + e.message);
+    document.getElementById('syncStatus').textContent = '● Error de conexión';
+    document.getElementById('syncStatus').style.color = 'var(--red)';
+  }
 }
-function saveCodes(codes) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(codes));
+
+async function saveToGitHub() {
+  document.getElementById('savingBar').style.display = 'block';
+  try {
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(codesData, null, 2))));
+    const body = {
+      message: 'Admin: actualización de códigos',
+      content,
+      branch: GITHUB_BRANCH,
+    };
+    if (fileSha) body.sha = fileSha;
+
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${ghToken}`,
+          Accept: 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'Error al guardar');
+    }
+
+    const data = await res.json();
+    fileSha = data.content.sha;
+    document.getElementById('savingBar').style.display = 'none';
+    return true;
+  } catch(e) {
+    document.getElementById('savingBar').style.display = 'none';
+    toast('❌ Error al guardar: ' + e.message);
+    return false;
+  }
 }
 
 // ── HELPERS ───────────────────────────────
@@ -381,55 +381,68 @@ function fmtDate(ts) {
        + ' ' + d.toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit' });
 }
 function uid() { return Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,5).toUpperCase(); }
-
 function generateCode() {
   const prefix = ['TECNO','ILIMIT','PERS','PROMO','VIP','NET'][Math.floor(Math.random()*6)];
-  const num = Math.floor(Math.random()*9000)+1000;
-  document.getElementById('newCode').value = prefix + num;
+  document.getElementById('newCode').value = prefix + (Math.floor(Math.random()*9000)+1000);
 }
-
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
 
 // ── CRUD ──────────────────────────────────
-function addCode() {
+async function addCode() {
   const code = document.getElementById('newCode').value.trim().toUpperCase();
   const type = document.getElementById('newType').value;
   const note = document.getElementById('newNote').value.trim();
   if (!code) { toast('⚠ Ingresá un código'); return; }
+  if (codesData.find(c => c.code === code)) { toast('⚠ Ese código ya existe'); return; }
 
-  const codes = loadCodes();
-  if (codes.find(c => c.code === code)) { toast('⚠ Ese código ya existe'); return; }
+  const btn = document.getElementById('addBtn');
+  btn.disabled = true;
 
-  codes.unshift({ id: uid(), code, type, note, status: 'active', created: Date.now(), usedAt: null });
-  saveCodes(codes);
-  document.getElementById('newCode').value = '';
-  document.getElementById('newNote').value = '';
-  renderStats(); renderTable();
-  toast('✅ Código creado: ' + code);
+  codesData.unshift({ id: uid(), code, type, note, status: 'active', created: Date.now(), usedAt: null });
+  const ok = await saveToGitHub();
+  if (ok) {
+    document.getElementById('newCode').value = '';
+    document.getElementById('newNote').value = '';
+    renderStats(); renderTable();
+    toast('✅ Código creado: ' + code);
+  } else {
+    codesData.shift(); // revertir si falló
+  }
+  btn.disabled = false;
 }
 
-function toggleCode(id) {
-  const codes = loadCodes();
-  const c = codes.find(x => x.id === id);
+async function toggleCode(id) {
+  const c = codesData.find(x => x.id === id);
   if (!c) return;
   if (c.status === 'used') { toast('ℹ Este código ya fue usado'); return; }
+  const prev = c.status;
   c.status = c.status === 'active' ? 'inactive' : 'active';
-  saveCodes(codes);
-  renderStats(); renderTable();
-  toast(c.status === 'active' ? '✅ Código activado' : '🔴 Código desactivado');
+  const ok = await saveToGitHub();
+  if (ok) {
+    renderStats(); renderTable();
+    toast(c.status === 'active' ? '✅ Código activado' : '🔴 Código desactivado');
+  } else {
+    c.status = prev;
+  }
 }
 
-function deleteCode(id) {
+async function deleteCode(id) {
   if (!confirm('¿Eliminar este código? No se puede deshacer.')) return;
-  const codes = loadCodes().filter(x => x.id !== id);
-  saveCodes(codes);
-  renderStats(); renderTable();
-  toast('🗑 Código eliminado');
+  const idx = codesData.findIndex(x => x.id === id);
+  if (idx === -1) return;
+  const removed = codesData.splice(idx, 1)[0];
+  const ok = await saveToGitHub();
+  if (ok) {
+    renderStats(); renderTable();
+    toast('🗑 Código eliminado');
+  } else {
+    codesData.splice(idx, 0, removed);
+  }
 }
 
 function copyCode(code) {
@@ -445,11 +458,10 @@ function setFilter(f, btn) {
 }
 
 function renderStats() {
-  const codes = loadCodes();
-  const total = codes.length;
-  const active = codes.filter(c => c.status === 'active').length;
-  const inactive = codes.filter(c => c.status === 'inactive').length;
-  const used = codes.filter(c => c.status === 'used').length;
+  const total = codesData.length;
+  const active = codesData.filter(c => c.status === 'active').length;
+  const inactive = codesData.filter(c => c.status === 'inactive').length;
+  const used = codesData.filter(c => c.status === 'used').length;
   document.getElementById('statsRow').innerHTML = `
     <div class="stat-card total"><div class="stat-val">${total}</div><div class="stat-label">Total códigos</div></div>
     <div class="stat-card active"><div class="stat-val">${active}</div><div class="stat-label">Activos</div></div>
@@ -459,10 +471,8 @@ function renderStats() {
 }
 
 function renderTable() {
-  const codes = loadCodes();
   const search = document.getElementById('searchInput').value.trim().toLowerCase();
-
-  let filtered = codes.filter(c => {
+  let filtered = codesData.filter(c => {
     if (currentFilter !== 'all' && c.status !== currentFilter) return false;
     if (search && !c.code.toLowerCase().includes(search) && !(c.note||'').toLowerCase().includes(search)) return false;
     return true;
@@ -471,11 +481,7 @@ function renderTable() {
   const body = document.getElementById('codesBody');
   const empty = document.getElementById('emptyState');
 
-  if (!filtered.length) {
-    body.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
+  if (!filtered.length) { body.innerHTML = ''; empty.style.display = 'block'; return; }
   empty.style.display = 'none';
 
   body.innerHTML = filtered.map(c => {
@@ -483,18 +489,15 @@ function renderTable() {
       ? '<span class="badge active">✓ Activo</span>'
       : c.status === 'used'
         ? '<span class="badge used">★ Usado</span>'
-        : '<span class="badge inactive">✗ Desactivado</span>';
-
+        : '<span class="badge inactive">✗ Desact.</span>';
     const typeBadge = c.type === 'single'
       ? '<span class="badge single">1 uso</span>'
       : '<span class="badge multi">∞ múltiple</span>';
-
     const toggleBtn = c.status !== 'used'
       ? (c.status === 'active'
           ? `<button class="action-btn btn-toggle-off" onclick="toggleCode('${c.id}')">Desactivar</button>`
           : `<button class="action-btn btn-toggle-on" onclick="toggleCode('${c.id}')">Activar</button>`)
       : '';
-
     return `<tr>
       <td><span class="code-text">${c.code}</span></td>
       <td>${statusBadge}</td>
@@ -510,7 +513,6 @@ function renderTable() {
   }).join('');
 }
 
-// Cargar con Enter en login
 document.getElementById('loginUser').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
 </script>
 </body>
