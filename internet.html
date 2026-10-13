@@ -495,10 +495,20 @@
 
   async function fetchCodes() {
     try {
-      const url = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_FILE}?t=${Date.now()}`;
-      const res = await fetch(url);
+      const res = await fetch(
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
+        {
+          headers: {
+            Authorization: `token ${GH_WRITE_TOKEN}`,
+            Accept: 'application/vnd.github.v3+json',
+            'Cache-Control': 'no-cache'
+          }
+        }
+      );
       if (!res.ok) return [];
-      return await res.json();
+      const json = await res.json();
+      const decoded = decodeURIComponent(escape(atob(json.content.replace(/\n/g, ''))));
+      return JSON.parse(decoded);
     } catch { return []; }
   }
 
