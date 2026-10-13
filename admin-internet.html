@@ -446,7 +446,8 @@ async function deleteCode(id) {
 }
 
 function copyCode(code) {
-  navigator.clipboard.writeText(code).then(() => toast('📋 Copiado: ' + code));
+  const texto = `Código para desbloqueo\n*${code}*`;
+  navigator.clipboard.writeText(texto).then(() => toast('📋 Copiado listo para WhatsApp'));
 }
 
 // ── RENDER ────────────────────────────────
