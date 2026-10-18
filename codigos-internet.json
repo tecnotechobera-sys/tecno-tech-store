@@ -70,14 +70,5 @@
     "status": "active",
     "created": 1791984374398,
     "usedAt": null
-  },
-  {
-    "id": "MV82HEJ7FBW",
-    "code": "TECNO7530",
-    "type": "single",
-    "note": "",
-    "status": "inactive",
-    "created": 1791979763155,
-    "usedAt": null
   }
 ]
