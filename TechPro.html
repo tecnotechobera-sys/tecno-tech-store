@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechPro PRO - Comprá una vez, usala para siempre | $40.000</title>
+<meta name="description" content="La app definitiva para tu taller técnico. Pago único de $40.000. Sin suscripciones. Vos sugerís las funciones, nosotros las desarrollamos.">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+:root {
+  --bg: #050505;
+  --card: #111113;
+  --text: #FFFFFF;
+  --sub: #9CA3AF;
+  --prim: #FF2A55;
+  --neon: #00E5FF;
+  --bor: #222;
+  --ok: #10B981;
+  --purple: #A855F7;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+/* HEADER */
+header {
+  position: fixed; top: 0; width: 100%; padding: 1rem 6%;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px);
+  z-index: 1000; border-bottom: 1px solid var(--bor);
+}
+.logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+.logo span { color: var(--neon); text-shadow: 0 0 20px rgba(0, 229, 255, 0.6); }
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a { color: var(--sub); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: color 0.3s; }
+nav a:hover { color: var(--neon); }
+.btn {
+  padding: 0.7rem 1.5rem; border-radius: 10px; font-weight: 700; font-size: 0.9rem;
+  cursor: pointer; text-decoration: none; display: inline-block;
+  transition: all 0.3s; border: none;
+}
+.btn-primary { background: var(--neon); color: #000; box-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0, 229, 255, 0.7); }
+.btn-price { background: var(--prim); color: #fff; box-shadow: 0 0 25px rgba(255, 42, 85, 0.5); }
+.btn-price:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(255, 42, 85, 0.8); }
+.btn-outline { background: transparent; color: var(--neon); border: 2px solid var(--neon); }
+.btn-outline:hover { background: rgba(0, 229, 255, 0.1); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; padding: 8rem 6% 4rem; display: flex; align-items: center;
+  gap: 4rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: 20%; left: -10%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,229,255,0.15) 0%, transparent 70%);
+  filter: blur(80px); pointer-events: none;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 10%; right: -10%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,42,85,0.12) 0%, transparent 70%);
+  filter: blur(80px); pointer-events: none;
+}
+.hero-content { flex: 1; max-width: 600px; z-index: 2; }
+.badge-hero {
+  display: inline-block; padding: 6px 14px; border-radius: 30px;
+  background: rgba(255, 42, 85, 0.1); border: 1px solid rgba(255, 42, 85, 0.4);
+  color: var(--prim); font-size: 0.75rem; font-weight: 700;
+  margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px;
+}
+.hero h1 {
+  font-size: 3.5rem; font-weight: 800; line-height: 1.1;
+  margin-bottom: 1.5rem; letter-spacing: -2px;
+}
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--neon), var(--prim));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero p { font-size: 1.15rem; color: var(--sub); margin-bottom: 2rem; max-width: 520px; }
+.hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-trust { display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; }
+.trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--sub); font-weight: 600; }
+.trust-item .check { color: var(--ok); font-size: 1rem; }
+
+/* PHONE */
+.hero-visual { flex: 1; display: flex; justify-content: center; z-index: 2; }
+.phone {
+  width: 300px; height: 600px; background: #0a0a0c; border-radius: 42px; padding: 12px;
+  box-shadow: 0 30px 80px rgba(0, 229, 255, 0.2), 0 0 0 2px #222;
+  position: relative; animation: float 6s ease-in-out infinite; transform: rotate(-3deg);
+}
+.phone::before {
+  content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  width: 100px; height: 22px; background: #0a0a0c; border-radius: 0 0 14px 14px; z-index: 10;
+}
+.phone-screen {
+  width: 100%; height: 100%; background: #050505; border-radius: 32px;
+  overflow: hidden; padding: 40px 14px 14px; display: flex; flex-direction: column; gap: 10px;
+}
+.mock-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.mock-avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: #111113;
+  border: 2px solid var(--neon); display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+.mock-name { font-size: 11px; font-weight: 700; }
+.mock-sub { font-size: 9px; color: var(--sub); }
+.mock-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
+.mock-stat { background: #111113; padding: 8px 4px; border-radius: 8px; border: 1px solid #222; text-align: center; }
+.mock-stat .v { font-size: 12px; font-weight: 700; color: var(--neon); }
+.mock-stat .l { font-size: 7px; color: var(--sub); font-weight: 600; }
+.mock-card { background: #111113; padding: 10px; border-radius: 10px; border: 1px solid #222; }
+.mock-card-head { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.mock-card-title { font-size: 10px; font-weight: 700; }
+.mock-badge {
+  padding: 2px 6px; border-radius: 4px; font-size: 7px; font-weight: 700;
+  background: rgba(0, 229, 255, 0.15); color: var(--neon); text-transform: uppercase;
+}
+.mock-badge.red { background: rgba(255,42,85,0.15); color: var(--prim); }
+.mock-badge.green { background: rgba(16,185,129,0.15); color: var(--ok); }
+.mock-card-line { font-size: 8px; color: var(--sub); margin-top: 2px; }
+.mock-nav { margin-top: auto; display: flex; justify-content: space-around; padding-top: 8px; border-top: 1px solid #222; }
+.mock-nav span { font-size: 14px; opacity: 0.4; }
+.mock-nav span.active { opacity: 1; color: var(--neon); }
+
+@keyframes float {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(-3deg) translateY(-20px); }
+}
+
+/* SECTIONS */
+section { padding: 5rem 6%; position: relative; }
+.section-tag {
+  color: var(--neon); font-size: 0.8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; text-align: center;
+}
+.section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 1rem; letter-spacing: -1px; }
+.section-sub { text-align: center; color: var(--sub); max-width: 600px; margin: 0 auto 3rem; font-size: 1.05rem; }
+
+/* FEATURES */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+.feature {
+  background: var(--card); padding: 2rem; border-radius: 16px;
+  border: 1px solid var(--bor); transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.feature::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--neon), transparent); opacity: 0; transition: opacity 0.3s;
+}
+.feature:hover { transform: translateY(-6px); border-color: rgba(0, 229, 255, 0.4); box-shadow: 0 20px 40px rgba(0, 229, 255, 0.1); }
+.feature:hover::before { opacity: 1; }
+.feature-icon {
+  width: 60px; height: 60px; border-radius: 14px;
+  background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; margin-bottom: 1.2rem;
+}
+.feature h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+.feature p { color: var(--sub); font-size: 0.95rem; }
+
+/* PRICING */
+.pricing-section { background: linear-gradient(180deg, transparent, rgba(255, 42, 85, 0.03), transparent); }
+.pricing-card {
+  max-width: 540px; margin: 0 auto;
+  background: linear-gradient(135deg, rgba(0,229,255,0.08), rgba(255,42,85,0.08));
+  border: 2px solid var(--neon); border-radius: 28px;
+  padding: 3.5rem 2.5rem 2.5rem; position: relative;
+  box-shadow: 0 30px 80px rgba(0, 229, 255, 0.15);
+}
+.pricing-badge {
+  position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+  background: var(--prim); color: #fff; padding: 8px 24px; border-radius: 30px;
+  font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+  box-shadow: 0 0 25px rgba(255, 42, 85, 0.6); white-space: nowrap;
+}
+.pricing-card h3 { font-size: 1.4rem; text-align: center; margin-bottom: 0.5rem; color: var(--neon); }
+.pricing-card .subtitle { text-align: center; color: var(--sub); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.price-display { text-align: center; margin-bottom: 0.5rem; }
+.price-old { font-size: 1.2rem; color: var(--sub); text-decoration: line-through; font-weight: 600; }
+.price-main {
+  font-size: 4.5rem; font-weight: 900; letter-spacing: -3px; line-height: 1;
+  background: linear-gradient(135deg, var(--neon), var(--prim));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.price-main .currency { font-size: 2rem; vertical-align: top; margin-right: 4px; }
+.price-note { text-align: center; color: var(--sub); font-size: 0.85rem; margin-bottom: 2rem; font-weight: 600; }
+.price-note b { color: var(--ok); }
+.pricing-features { list-style: none; margin-bottom: 2rem; }
+.pricing-features li {
+  padding: 0.7rem 0; font-size: 0.95rem;
+  display: flex; align-items: flex-start; gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.pricing-features li:last-child { border-bottom: none; }
+.pricing-features li::before {
+  content: '✓'; color: var(--ok); font-weight: 800; font-size: 1.1rem; flex-shrink: 0;
+}
+.pricing-features li.no::before { content: '✗'; color: var(--prim); }
+.pricing-features li.no { color: var(--sub); opacity: 0.7; }
+.btn-buy {
+  width: 100%; padding: 1.2rem; border-radius: 14px; font-size: 1.1rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--neon), var(--prim)); color: #000;
+  border: none; cursor: pointer; transition: all 0.3s;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.btn-buy:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0, 229, 255, 0.4); }
+.payment-icons { text-align: center; margin-top: 1.5rem; color: var(--sub); font-size: 0.8rem; }
+.payment-icons span { display: inline-block; margin: 0 8px; font-weight: 600; }
+
+/* SUGGESTIONS */
+.suggestions {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(0, 229, 255, 0.05));
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+}
+.suggestions-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem; max-width: 1000px; margin: 0 auto 3rem;
+}
+.suggestion-card {
+  background: var(--card); padding: 1.8rem; border-radius: 16px;
+  border: 1px solid var(--bor); text-align: center; transition: all 0.3s;
+}
+.suggestion-card:hover { border-color: var(--purple); transform: translateY(-4px); }
+.suggestion-card .icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+.suggestion-card h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+.suggestion-card p { font-size: 0.85rem; color: var(--sub); }
+.suggest-cta {
+  max-width: 700px; margin: 0 auto; text-align: center;
+  background: var(--card); border: 1px solid var(--purple);
+  border-radius: 20px; padding: 2.5rem 2rem;
+}
+.suggest-cta h3 { font-size: 1.5rem; margin-bottom: 0.8rem; }
+.suggest-cta h3 span { color: var(--purple); }
+.suggest-cta p { color: var(--sub); margin-bottom: 1.5rem; font-size: 0.95rem; }
+.btn-whatsapp {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #25D366; color: #000; padding: 1rem 2rem; border-radius: 12px;
+  font-weight: 800; text-decoration: none; font-size: 1rem; transition: all 0.3s;
+}
+.btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4); }
+
+/* SHOWCASE */
+.showcase { display: flex; align-items: center; gap: 4rem; max-width: 1200px; margin: 0 auto; padding: 3rem 0; }
+.showcase.reverse { flex-direction: row-reverse; }
+.showcase-text { flex: 1; }
+.showcase-text h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -1px; }
+.showcase-text h2 span { color: var(--neon); }
+.showcase-text p { color: var(--sub); font-size: 1rem; margin-bottom: 1.5rem; }
+.showcase-list { list-style: none; }
+.showcase-list li {
+  padding: 0.5rem 0; color: var(--text); font-size: 0.95rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.showcase-list li::before { content: '✓'; color: var(--neon); font-weight: 800; font-size: 1.1rem; }
+
+/* COMPARE */
+.compare-table {
+  max-width: 800px; margin: 0 auto; background: var(--card);
+  border-radius: 20px; overflow: hidden; border: 1px solid var(--bor);
+}
+.compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--bor); }
+.compare-row:last-child { border-bottom: none; }
+.compare-row.header { background: rgba(0, 229, 255, 0.08); font-weight: 800; }
+.compare-cell { padding: 1.2rem 1.5rem; font-size: 0.9rem; text-align: center; }
+.compare-cell:first-child { text-align: left; }
+.compare-row.header .compare-cell { color: var(--neon); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+.compare-yes { color: var(--ok); font-weight: 700; }
+.compare-no { color: var(--prim); font-weight: 700; }
+
+/* TESTIMONIOS */
+.testimonios { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+.testimonio { background: var(--card); padding: 1.8rem; border-radius: 16px; border: 1px solid var(--bor); }
+.testimonio-stars { color: #FFD700; margin-bottom: 0.8rem; font-size: 0.9rem; }
+.testimonio p { font-size: 0.95rem; margin-bottom: 1rem; color: #ddd; font-style: italic; }
+.testimonio-author { display: flex; align-items: center; gap: 10px; }
+.testimonio-author .av {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon), var(--purple));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; color: #000; font-size: 0.9rem;
+}
+.testimonio-author .name { font-weight: 700; font-size: 0.9rem; }
+.testimonio-author .role { font-size: 0.75rem; color: var(--sub); }
+
+/* FAQ */
+.faq { max-width: 800px; margin: 0 auto; }
+.faq-item {
+  background: var(--card); border: 1px solid var(--bor); border-radius: 12px;
+  padding: 1.2rem 1.5rem; margin-bottom: 1rem; cursor: pointer; transition: all 0.3s;
+}
+.faq-item:hover { border-color: rgba(0, 229, 255, 0.4); }
+.faq-q {
+  font-weight: 700; font-size: 1rem; display: flex;
+  justify-content: space-between; align-items: center; gap: 1rem;
+}
+.faq-q .arrow { color: var(--neon); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.3s; }
+.faq-item.open .faq-q .arrow { transform: rotate(45deg); }
+.faq-a { color: var(--sub); font-size: 0.9rem; max-height: 0; overflow: hidden; transition: max-height 0.4s, margin 0.3s; }
+.faq-item.open .faq-a { max-height: 400px; margin-top: 0.8rem; }
+
+/* CTA FINAL */
+.cta-final {
+  background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(255,42,85,0.1));
+  border-top: 1px solid rgba(0, 229, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 42, 85, 0.2);
+  text-align: center; padding: 5rem 6%;
+}
+.cta-final h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -1.5px; }
+.cta-final h2 span {
+  background: linear-gradient(135deg, var(--neon), var(--prim));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.cta-final p { color: var(--sub); font-size: 1.15rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+/* FOOTER */
+footer { background: #000; padding: 3rem 6% 2rem; border-top: 1px solid var(--bor); }
+.footer-content {
+  max-width: 1200px; margin: 0 auto; display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem;
+}
+.footer-col h4 {
+  font-size: 0.85rem; color: var(--neon); text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 1rem;
+}
+.footer-col a { display: block; color: var(--sub); text-decoration: none; font-size: 0.85rem; margin-bottom: 0.6rem; transition: color 0.3s; }
+.footer-col a:hover { color: var(--neon); }
+.footer-brand p { color: var(--sub); font-size: 0.85rem; margin-top: 0.5rem; max-width: 280px; }
+.footer-bottom {
+  text-align: center; padding-top: 2rem; border-top: 1px solid var(--bor);
+  color: var(--sub); font-size: 0.8rem;
+}
+
+/* WHATSAPP FLOTANTE */
+.wa-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+  z-index: 999;
+  text-decoration: none;
+  transition: all 0.3s;
+  animation: pulse 2s infinite;
+}
+.wa-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.7);
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5); }
+  50% { box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5), 0 0 0 12px rgba(37, 211, 102, 0.15); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero { flex-direction: column; text-align: center; padding-top: 6rem; }
+  .hero h1 { font-size: 2.5rem; }
+  .hero-buttons, .hero-trust { justify-content: center; }
+  .showcase { flex-direction: column !important; gap: 2rem; }
+  .showcase-text h2 { font-size: 1.8rem; }
+  .footer-content { grid-template-columns: 1fr 1fr; }
+  nav { display: none; }
+  .compare-cell { padding: 1rem 0.5rem; font-size: 0.8rem; }
+}
+@media (max-width: 500px) {
+  .hero h1 { font-size: 2rem; }
+  .section-title { font-size: 1.8rem; }
+  .cta-final h2 { font-size: 2rem; }
+  .phone { width: 260px; height: 520px; }
+  .footer-content { grid-template-columns: 1fr; }
+  .price-main { font-size: 3.5rem; }
+  .pricing-card { padding: 3rem 1.5rem 2rem; }
+  .wa-float { width: 54px; height: 54px; font-size: 1.6rem; bottom: 18px; right: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">TechPro <span>PRO</span></div>
+  <nav>
+    <a href="#funciones">Funciones</a>
+    <a href="#precio">Precio</a>
+    <a href="#sugerencias">Sugerencias</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://wa.me/5493755223737?text=Hola!%20Quiero%20comprar%20TechPro%20PRO%20por%20%2440.000" class="btn btn-price" target="_blank">Comprar · $40.000</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge-hero">💰 Pago único · Sin suscripciones</div>
+    <h1>Comprá una vez. <span class="gradient">Usala para siempre.</span></h1>
+    <p>La app de gestión para talleres técnicos que te da el control total de tu negocio. <b style="color:#fff">$40.000 por única vez</b>, sin mensualidades ni sorpresas. Y si querés una función nueva, la pedís y la desarrollamos.</p>
+    <div class="hero-buttons">
+      <a href="https://wa.me/5493755223737?text=Hola!%20Quiero%20comprar%20TechPro%20PRO%20por%20%2440.000" class="btn btn-price" target="_blank">🛒 Comprar por $40.000</a>
+      <a href="#funciones" class="btn btn-outline">Ver funciones</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="check">✓</span> Pago único</div>
+      <div class="trust-item"><span class="check">✓</span> Sin mensualidades</div>
+      <div class="trust-item"><span class="check">✓</span> Actualizaciones incluidas</div>
+      <div class="trust-item"><span class="check">✓</span> Soporte por WhatsApp</div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="mock-header">
+          <div class="mock-avatar">🔧</div>
+          <div>
+            <div class="mock-name">Mi Taller</div>
+            <div class="mock-sub">Hola, Técnico</div>
+          </div>
+        </div>
+        <div class="mock-stats">
+          <div class="mock-stat"><div class="v">12</div><div class="l">Activas</div></div>
+          <div class="mock-stat"><div class="v">48</div><div class="l">Clientes</div></div>
+          <div class="mock-stat"><div class="v">$85K</div><div class="l">Ganancia</div></div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-head">
+            <span class="mock-card-title">iPhone 13</span>
+            <span class="mock-badge">Recibido</span>
+          </div>
+          <div class="mock-card-line">👤 Juan Pérez</div>
+          <div class="mock-card-line">💵 $18.000</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-head">
+            <span class="mock-card-title">Samsung S22</span>
+            <span class="mock-badge red">Pendiente</span>
+          </div>
+          <div class="mock-card-line">👤 María López</div>
+          <div class="mock-card-line">💵 $12.500</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-head">
+            <span class="mock-card-title">Xiaomi Redmi</span>
+            <span class="mock-badge green">Entregado</span>
+          </div>
+          <div class="mock-card-line">👤 Carlos Ruiz</div>
+          <div class="mock-card-line">💵 $9.800</div>
+        </div>
+        <div class="mock-nav">
+          <span class="active">🏠</span>
+          <span>👥</span>
+          <span>📋</span>
+          <span>📄</span>
+          <span>💰</span>
+          <span>⚙️</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCIONES -->
+<section id="funciones">
+  <div class="section-tag">Funciones incluidas</div>
+  <h2 class="section-title">Todo lo que tu taller necesita</h2>
+  <p class="section-sub">Una sola compra te da acceso completo a todas estas funciones, para siempre.</p>
+
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon">📋</div>
+      <h3>Órdenes de reparación</h3>
+      <p>Registrá equipos, fallas y estados (recibido, revisado, reparado, entregado). Controlá cada reparación en tiempo real.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">👥</div>
+      <h3>Base de clientes</h3>
+      <p>Guardá nombre y WhatsApp de cada cliente. Contactá con un solo toque y mantené un historial completo.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📄</div>
+      <h3>Presupuestos profesionales</h3>
+      <p>Creá presupuestos con monto base y envío. Compartilos como PDF o imagen por WhatsApp en segundos.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💰</div>
+      <h3>Ventas de accesorios</h3>
+      <p>Controlá la venta de fundas, cargadores y más. Llevá el total recaudado siempre visible.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🖨️</div>
+      <h3>Comprobantes en PDF</h3>
+      <p>Generá tickets profesionales con tu logo, datos y garantía. Imprimilos o guardalos como PDF.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📲</div>
+      <h3>Envío por WhatsApp</h3>
+      <p>Compartí comprobantes y presupuestos como imagen directamente al WhatsApp del cliente.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🎨</div>
+      <h3>Tu marca personalizada</h3>
+      <p>Subí el logo de tu local, configurá tu dirección y teléfono. Todos los comprobantes llevan tu identidad.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">☁️</div>
+      <h3>Sincronización total</h3>
+      <p>Tus datos en la nube. Cambiá de celular y seguí trabajando como si nada. Nunca pierdas información.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📊</div>
+      <h3>Ganancias reales</h3>
+      <p>Calculá tu ganancia neta automáticamente descontando repuestos. Sabé siempre cuánto estás ganando.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIO -->
+<section class="pricing-section" id="precio">
+  <div class="section-tag">Precio</div>
+  <h2 class="section-title">Una sola vez. Para siempre.</h2>
+  <p class="section-sub">Sin suscripciones, sin cargos ocultos, sin mensualidades. Pagás una vez y la app es tuya.</p>
+
+  <div class="pricing-card">
+    <div class="pricing-badge">Pago único</div>
+    <h3>TechPro PRO · Licencia completa</h3>
+    <p class="subtitle">Acceso total a todas las funciones actuales y futuras</p>
+
+    <div class="price-display">
+      <div class="price-old">$70.000</div>
+      <div class="price-main"><span class="currency">$</span>40.000</div>
+    </div>
+    <div class="price-note">Pago único · <b>Sin mensualidades</b> · Licencia de por vida</div>
+
+    <ul class="pricing-features">
+      <li>Acceso completo a todas las funciones</li>
+      <li>Actualizaciones futuras incluidas</li>
+      <li>Personalización con tu logo y datos</li>
+      <li>Sincronización en la nube ilimitada</li>
+      <li>Generación de PDF e imágenes ilimitadas</li>
+      <li>Soporte técnico por WhatsApp</li>
+      <li>Podés sugerir nuevas funciones</li>
+      <li class="no">Sin mensualidades ni recargos</li>
+      <li class="no">Sin límites de uso</li>
+    </ul>
+
+    <a href="https://wa.me/5493755223737?text=Hola!%20Quiero%20comprar%20TechPro%20PRO%20por%20%2440.000" class="btn-buy" style="display:block; text-align:center; text-decoration:none;" target="_blank">🛒 Comprar ahora · $40.000</a>
+
+    <div class="payment-icons">
+      <span>💳 Tarjeta</span> · <span>🏦 Transferencia</span> · <span>💵 Efectivo</span> · <span>📱 MercadoPago</span>
+    </div>
+  </div>
+</section>
+
+<!-- SUGERENCIAS -->
+<section class="suggestions" id="sugerencias">
+  <div class="section-tag">Comunidad TechPro</div>
+  <h2 class="section-title">Vos sugerís. <span style="color:var(--purple)">Nosotros desarrollamos.</span></h2>
+  <p class="section-sub">Tu compra incluye algo más que una app: incluye una voz en el futuro del producto. Si necesitás una función que no existe, la pedís y la estudiamos.</p>
+
+  <div class="suggestions-grid">
+    <div class="suggestion-card">
+      <div class="icon">💡</div>
+      <h4>Proponé ideas</h4>
+      <p>Contanos qué función te haría la vida más fácil. Escuchamos a todos los usuarios.</p>
+    </div>
+    <div class="suggestion-card">
+      <div class="icon">🗳️</div>
+      <h4>Votá funciones</h4>
+      <p>Las ideas más votadas por la comunidad pasan a la cola de desarrollo.</p>
+    </div>
+    <div class="suggestion-card">
+      <div class="icon">🚀</div>
+      <h4>Actualizaciones gratis</h4>
+      <p>Cada nueva función que se lance, la recibís sin pagar un peso extra.</p>
+    </div>
+    <div class="suggestion-card">
+      <div class="icon">🤝</div>
+      <h4>Comunidad activa</h4>
+      <p>Grupo de WhatsApp con otros técnicos. Compartí experiencias y aprendé de otros.</p>
+    </div>
+  </div>
+
+  <div class="suggest-cta">
+    <h3>¿Tenés una idea para <span>TechPro PRO</span>?</h3>
+    <p>Escribinos por WhatsApp y contanos qué función te gustaría ver. Si es viable, la desarrollamos y la incluimos en la próxima actualización — sin costo extra para vos.</p>
+    <a href="https://wa.me/5493755223737?text=Hola!%20Tengo%20una%20sugerencia%20para%20TechPro%20PRO" class="btn-whatsapp" target="_blank">
+      💬 Enviar mi sugerencia
+    </a>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section>
+  <div class="showcase">
+    <div class="showcase-text">
+      <h2>Comprobantes que <span>impresionan</span></h2>
+      <p>Generá tickets profesionales con el logo de tu taller, los datos del cliente, el desglose de costos y la garantía. Todo con un solo toque.</p>
+      <ul class="showcase-list">
+        <li>PDF listo para imprimir o guardar</li>
+        <li>Compartilo como imagen por WhatsApp</li>
+        <li>Incluye aviso legal de retiro</li>
+        <li>Logo y datos personalizados</li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="phone" style="animation-delay: -3s;">
+        <div class="phone-screen">
+          <div style="text-align:center; margin-bottom: 8px;">
+            <div style="font-size:8px; color:#666;">📍 Mi Taller</div>
+            <h3 style="font-size:14px; margin:4px 0;">COMPROBANTE</h3>
+          </div>
+          <div class="mock-card" style="padding:8px;">
+            <div class="mock-card-line" style="display:flex; justify-content:space-between;"><span>Cliente:</span><span>Juan Pérez</span></div>
+            <div class="mock-card-line" style="display:flex; justify-content:space-between;"><span>Equipo:</span><span>iPhone 13</span></div>
+            <div class="mock-card-line" style="display:flex; justify-content:space-between;"><span>Garantía:</span><span>30 días</span></div>
+          </div>
+          <div style="background:#111; padding:10px; border-radius:8px; text-align:right; margin-top:8px;">
+            <div style="font-size:8px; color:#aaa;">TOTAL</div>
+            <div style="font-size:18px; font-weight:bold; color:#00E5FF;">$18.000</div>
+            <div style="font-size:8px; color:#f59e0b;">Saldo: $8.000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE 2 -->
+<section>
+  <div class="showcase reverse">
+    <div class="showcase-text">
+      <h2>Presupuestos que <span>cierran ventas</span></h2>
+      <p>Creá presupuestos rápidos con monto base, costo de envío y tipo de entrega. Envialos como imagen por WhatsApp y cerrá más clientes.</p>
+      <ul class="showcase-list">
+        <li>Cálculo automático de total</li>
+        <li>Opción de retiro en local o delivery</li>
+        <li>Envío por WhatsApp en un toque</li>
+        <li>Diseño profesional para presupuestos</li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="phone" style="animation-delay: -1.5s; transform: rotate(3deg);">
+        <div class="phone-screen">
+          <div style="text-align:center; margin-bottom: 8px;">
+            <div style="font-size:8px; color:#666;">📍 Mi Taller</div>
+            <h3 style="font-size:12px; margin:4px 0; color:#A855F7;">PRESUPUESTO</h3>
+          </div>
+          <div class="mock-card" style="padding:8px;">
+            <div class="mock-card-line" style="display:flex; justify-content:space-between;"><span>Cliente:</span><span>María López</span></div>
+            <div class="mock-card-line" style="display:flex; justify-content:space-between;"><span>Servicio:</span><span>Cambio pantalla</span></div>
+            <div class="mock-card-line" style="display:flex; justify-content:space-between;"><span>Entrega:</span><span>Delivery</span></div>
+          </div>
+          <div style="background:#111; padding:10px; border-radius:8px; text-align:right; margin-top:8px;">
+            <div style="font-size:8px; color:#aaa;">TOTAL</div>
+            <div style="font-size:18px; font-weight:bold; color:#A855F7;">$25.500</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIVA -->
+<section id="porque" style="background: linear-gradient(180deg, transparent, rgba(0,229,255,0.02));">
+  <div class="section-tag">Comparativa</div>
+  <h2 class="section-title">TechPro PRO vs. otras apps</h2>
+  <p class="section-sub">Mirá por qué pagar una vez es mejor que pagar todos los meses.</p>
+
+  <div class="compare-table">
+    <div class="compare-row header">
+      <div class="compare-cell">Característica</div>
+      <div class="compare-cell">TechPro PRO</div>
+      <div class="compare-cell">Otras apps</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell">Modelo de cobro</div>
+      <div class="compare-cell compare-yes">Pago único</div>
+      <div class="compare-cell compare-no">Suscripción mensual</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell">Costo a 2 años</div>
+      <div class="compare-cell compare-yes">$40.000</div>
+      <div class="compare-cell compare-no">+$150.000</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell">Actualizaciones</div>
+      <div class="compare-cell compare-yes">Incluidas</div>
+      <div class="compare-cell compare-no">De pago</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell">Sugerir funciones</div>
+      <div class="compare-cell compare-yes">Sí, siempre</div>
+      <div class="compare-cell compare-no">No</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell">Soporte WhatsApp</div>
+      <div class="compare-cell compare-yes">Sí</div>
+      <div class="compare-cell compare-no">Limitado</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell">Funciones enfocadas al taller</div>
+      <div class="compare-cell compare-yes">100%</div>
+      <div class="compare-cell compare-no">Genéricas</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell">Sin anuncios</div>
+      <div class="compare-cell compare-yes">Sí</div>
+      <div class="compare-cell compare-no">A veces</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="section-tag">Testimonios</div>
+  <h2 class="section-title">Técnicos que ya la compraron</h2>
+  <p class="section-sub">Miles de talleres en toda Latinoamérica ya usan TechPro PRO.</p>
+
+  <div class="testimonios">
+    <div class="testimonio">
+      <div class="testimonio-stars">★★★★★</div>
+      <p>"Pagué $40.000 una sola vez y ya recuperé la inversión con creces. El comprobante por WhatsApp me ahorra 15 minutos por cliente."</p>
+      <div class="testimonio-author">
+        <div class="av">JM</div>
+        <div>
+          <div class="name">Juan Martínez</div>
+          <div class="role">Taller "FixPhone" · Buenos Aires</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonio">
+      <div class="testimonio-stars">★★★★★</div>
+      <p>"Lo que más valoro es que puedo sugerir funciones. Les pedí un reporte mensual de ganancias y en dos semanas ya estaba en la app. Sin pagar nada más."</p>
+      <div class="testimonio-author">
+        <div class="av">LR</div>
+        <div>
+          <div class="name">Lucía Ramírez</div>
+          <div class="role">Técnica independiente · Córdoba</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonio">
+      <div class="testimonio-stars">★★★★★</div>
+      <p>"Comparado con otras apps que cobran mensualidad, esto es un regalo. Y encima escuchan a los usuarios. 100% recomendado."</p>
+      <div class="testimonio-author">
+        <div class="av">CG</div>
+        <div>
+          <div class="name">Carlos Gómez</div>
+          <div class="role">Taller "TecnoFix" · Monterrey</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background: linear-gradient(180deg, transparent, rgba(0,229,255,0.02));">
+  <div class="section-tag">Preguntas frecuentes</div>
+  <h2 class="section-title">¿Tenés dudas?</h2>
+  <p class="section-sub">Todo lo que necesitás saber antes de comprar.</p>
+
+  <div class="faq">
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿El pago de $40.000 es realmente único? <span class="arrow">+</span></div>
+      <div class="faq-a">Sí. Pagás $40.000 una sola vez y tenés acceso de por vida a la app. No hay mensualidades, recargos ni cargos ocultos. Todas las actualizaciones futuras están incluidas.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Qué incluye la compra? <span class="arrow">+</span></div>
+      <div class="faq-a">Acceso completo a todas las funciones actuales, todas las actualizaciones futuras gratis, soporte técnico por WhatsApp, y la posibilidad de sugerir nuevas funciones que se irán agregando.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Cómo sugiero una nueva función? <span class="arrow">+</span></div>
+      <div class="faq-a">Escribinos por WhatsApp con tu idea. Evaluamos cada sugerencia. Si es viable y suma valor al producto, la desarrollamos y la incluimos en una próxima actualización sin costo extra.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Cómo puedo pagar? <span class="arrow">+</span></div>
+      <div class="faq-a">Aceptamos MercadoPago, transferencia bancaria y tarjetas. Coordinamos el pago por WhatsApp y te damos acceso inmediato.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Mis datos están seguros? <span class="arrow">+</span></div>
+      <div class="faq-a">Sí. Usamos Firebase de Google con cifrado de extremo a extremo. Solo vos podés acceder a tu información.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Puedo usarla en varios dispositivos? <span class="arrow">+</span></div>
+      <div class="faq-a">Sí. Iniciá sesión con tu cuenta en cualquier dispositivo (celular, tablet o PC) y todos tus datos estarán sincronizados.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">¿Hay garantía o devolución? <span class="arrow">+</span></div>
+      <div class="faq-a">Sí. Si dentro de los primeros 7 días no estás conforme, te devolvemos el dinero sin preguntas. Tu compra está protegida.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="comprar">
+  <h2>Empezá hoy por <span>$40.000</span></h2>
+  <p>Pagás una vez y la app es tuya para siempre. Sin suscripciones, sin sorpresas. Actualizaciones y soporte incluidos.</p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2rem;">
+    <a href="https://wa.me/5493755223737?text=Hola!%20Quiero%20comprar%20TechPro%20PRO%20por%20%2440.000" class="btn btn-price" style="padding:1.2rem 2.5rem; font-size:1.1rem; border-radius:14px;" target="_blank">🛒 Comprar ahora</a>
+    <a href="#faq" class="btn btn-outline" style="padding:1.2rem 2rem; font-size:1.1rem; border-radius:14px;">Tengo dudas</a>
+  </div>
+  <p style="margin-top:1.5rem; font-size:0.9rem; opacity:0.7;">✓ Garantía de 7 días · ✓ Soporte por WhatsApp · ✓ Actualizaciones gratis</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="logo">TechPro <span>PRO</span></div>
+      <p>La app de gestión para talleres técnicos que quieren crecer sin complicaciones ni mensualidades.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Producto</h4>
+      <a href="#funciones">Funciones</a>
+      <a href="#precio">Precio</a>
+      <a href="#comprar">Comprar</a>
+    </div>
+    <div class="footer-col">
+      <h4>Soporte</h4>
+      <a href="#faq">FAQ</a>
+      <a href="https://wa.me/5493755223737" target="_blank">WhatsApp</a>
+      <a href="mailto:hola@techpro.app">Contacto</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Términos</a>
+      <a href="#">Privacidad</a>
+      <a href="#">Devoluciones</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 TechPro PRO. Todos los derechos reservados. Hecho con 🔧 para técnicos.
+  </div>
+</footer>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/5493755223737?text=Hola!%20Quiero%20info%20sobre%20TechPro%20PRO" class="wa-float" target="_blank" aria-label="Contactar por WhatsApp">
+  💬
+</a>
+
+</body>
+</html>
